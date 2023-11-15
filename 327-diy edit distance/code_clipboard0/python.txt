@@ -1,0 +1,5 @@
+def min_distance(str1, str2):
+    
+    # Write your code here
+
+    pass

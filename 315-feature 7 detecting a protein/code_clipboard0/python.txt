@@ -1,0 +1,32 @@
+def is_protein(s):
+  # Create a hashmap to keep track of the nucleotides and their occurences
+  map = {}
+  for i in s:
+    map[i] = map.get(i,0) + 1 
+
+  # Traverse the sequence and create a new entry for every new nucleotide found.
+  # If a nucleotide, that is already in the hashmap, is found, get its current 
+  # occurence and increment 1 to it. 
+
+  count = 0
+  
+  # Traverse the hashmap and update the count by 1, whenever a 
+  # nucleotide with odd number of occurences is found.
+  for nuc in map.keys():
+    count += map[nuc] % 2 
+
+  if count <= 1:
+    return True
+  else:
+    return False
+  
+# Driver Code
+sequence = "baefeab"
+protein = is_protein(sequence)
+print("Input:" , sequence)
+print("Output:" ,protein)
+
+sequence = "abc"
+protein = is_protein(sequence)
+print("Input:" , sequence)
+print("Output:" ,protein)

@@ -1,0 +1,24 @@
+def determine_location(region, loss_value):
+
+    if len(region) == 0 or len(region[0]) == 0:
+        return False
+
+    height = len(region)
+    width = len(region[0])
+
+    row = height - 1
+    col = 0
+
+    while col < width and row >= 0:
+        if region[row][col] > loss_value:
+            row -= 1
+        elif region[row][col] < loss_value:
+            col += 1
+        else:
+            return [row, col]
+    
+    return [-1, -1]
+
+region = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]]
+loss_value = 5
+print("The coordinates of the loss value region are:", determine_location(region, loss_value))

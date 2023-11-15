@@ -1,0 +1,6 @@
+from bisect import bisect_left
+def find_closest_elements(arr, k, x):
+    
+    # Write your code here
+
+    pass

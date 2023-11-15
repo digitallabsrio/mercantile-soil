@@ -1,0 +1,30 @@
+def low_coverage(matrix):
+    if not matrix: 
+        return 0
+
+    max_area = 0
+    dp = [0] * len(matrix[0])
+    for i in range(len(matrix)):
+        for j in range(len(matrix[0])):
+
+            # update the state of this row's dp list using the last row's dp list
+            # by keeping track of the number of consecutive ones
+            if matrix[i][j] == '1':
+                dp[j] = dp[j] + 1
+            else:
+                dp[j] = 0
+
+        # update max_area with the maximum area from this row's dp list
+        max_area = max(max_area, maximum_row_area(dp))
+    return max_area
+
+# Driver code
+
+mall = [
+    ["1","0","0","1","1","1"],
+    ["1","0","1","1","0","1"],
+    ["0","1","1","1","1","1"],
+    ["0","0","1","1","1","1"]
+]
+
+print("Maximum Low coverage area is", low_coverage(mall), "units")

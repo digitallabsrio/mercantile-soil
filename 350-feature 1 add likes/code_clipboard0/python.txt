@@ -1,0 +1,28 @@
+def add_likes(like1, like2):
+    res = []
+    carry = 0
+    p1 = len(like1) - 1
+    p2 = len(like2) - 1
+    while p1 >= 0 or p2 >= 0:
+        if p1 >= 0:
+            x1 = ord(like1[p1]) - ord('0')
+        else: 
+            x1 = 0
+        if p2 >= 0:
+            x2 = ord(like2[p2]) - ord('0')
+        else: 
+            x2 = 0
+        value = (x1 + x2 + carry) % 10
+        carry = (x1 + x2 + carry) // 10
+        res.append(value)
+        p1 -= 1
+        p2 -= 1
+    
+    if carry:
+        res.append(carry)
+    
+    return ''.join(str(x) for x in res[::-1])
+    
+        
+# Driver code
+print(add_likes("1545", "67"))

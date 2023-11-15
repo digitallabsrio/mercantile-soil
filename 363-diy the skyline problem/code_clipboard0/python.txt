@@ -1,0 +1,5 @@
+def draw_skyline(buildings):
+
+    # Write your code here
+
+    pass

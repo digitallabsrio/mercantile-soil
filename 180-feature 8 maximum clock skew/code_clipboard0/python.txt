@@ -1,0 +1,49 @@
+class TreeNode:
+  def __init__(self, val):
+    self.val = val
+    self.children = []
+
+class Tree:
+    def max_clock_skew(self, root):
+        if not root:
+            return 0
+
+        # store the required maximum difference
+        self.max_diff = 0
+
+        def dfs(node, maxi_val, mini_val):
+            if not node:
+                return
+
+            # update `max_diff`
+            self.max_diff = max(self.max_diff, abs(maxi_val - node.val),
+                                abs(mini_val - node.val))
+            
+            # update the maxi_val and mini_val
+            maxi_val = max(maxi_val, node.val)
+            mini_val = min(mini_val, node.val)
+
+            for child in node.children:
+                dfs(child, maxi_val, mini_val)
+
+        dfs(root, root.val, root.val)
+
+        return self.max_diff
+
+# Driver code
+root = TreeNode(8)
+root.children.append(TreeNode(3))
+root.children.append(TreeNode(10))
+root.children.append(TreeNode(12)) 
+root.children[0].children.append(TreeNode(6)) 
+root.children[0].children[0].children.append(TreeNode(1)) 
+root.children[0].children.append(TreeNode(5)) 
+root.children[0].children[1].children.append(TreeNode(2))
+root.children[0].children[1].children.append(TreeNode(3))
+root.children[0].children[1].children.append(TreeNode(4)) 
+root.children[2].children.append(TreeNode(8))
+root.children[2].children.append(TreeNode(7))
+root.children[2].children.append(TreeNode(9))
+
+obj = Tree()
+print("The maximum clock skew we'll encounter is:", obj.max_clock_skew(root), "seconds")

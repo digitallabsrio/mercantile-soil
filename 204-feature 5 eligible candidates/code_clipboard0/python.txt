@@ -1,0 +1,38 @@
+from bisect import bisect_left
+def find_servers(servers, k, num):
+    
+    # If the number of servers is same as k,
+    # return the original servers array
+    if len(servers) == k:
+        return servers
+    
+    # Do a binary search to find the element closest to num
+    # and initialize two pointers for the sliding window
+
+    left = bisect_left(servers, num) - 1
+    right = left + 1
+
+    # While the sliding window's size is less than k
+    while right - left - 1 < k:
+        # check for out of bounds
+        if left == -1:
+            right += 1
+            continue
+        
+        # Expand the window towards the side with the closer number
+        # Be careful to not go out of bounds with the pointers
+        # |a - x| < |b - x|,
+        # |a - x| == |b - x|
+        if right == len(servers) or abs(servers[left] - num) <= abs(servers[right] - num):
+            left -= 1
+        else:
+            right += 1
+    
+    # Return the window
+    return servers[left + 1:right]
+
+# Driver code
+servers = [1,2,3,4,5]
+k = 4;
+num = 3;
+print(find_servers(servers, k, num))

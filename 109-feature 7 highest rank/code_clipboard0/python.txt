@@ -1,0 +1,24 @@
+from heapq import *
+def kth_highest_rank(ranks, k):
+  min_heap = []
+  # Put first k ranks in the min heap
+  for i in range(k):
+    heappush(min_heap, ranks[i])
+
+  # Go through the remaining ranks of the list, if the rank from the list is greater than the
+  # top(smallest) rank of the heap, remove the top rank from heap and add the rank from array
+  for i in range(k, len(ranks)):
+    if ranks[i] > min_heap[0]:
+      heappop(min_heap)
+      heappush(min_heap, ranks[i])
+  
+  # The root of the heap has the Kth largest rank
+  return min_heap[0]
+
+
+# Driver code
+
+driver_ranks = [1, 5, 12, 2, 11, 9, 7, 30, 20]
+k = 3 # Supplied by a hidden API
+
+print("Driver with the rank", kth_highest_rank(driver_ranks, k), "is selected!")

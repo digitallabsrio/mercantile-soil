@@ -1,0 +1,65 @@
+from collections import Counter
+
+def smallest_sequence(list_a, list_b):
+    # Returns an empty list if one or more list is empty.
+    if not list_a or not list_b:
+        return []
+
+    # We will use this dictionary to keep a count of all unique topics in list b.
+    dict_list_b = Counter(list_b)
+
+    # This will hold the count of number of unique topics in list b.
+    count_unique_b = len(dict_list_b)
+
+    # unique_characters keeps a count of the number of unique characters of list_b which are present in the current with its required frequency.
+    unique_characters = 0
+
+    # This dictionary holds the count of all the unique topics in the current window.
+    unique_topics = {}
+
+    # Checks and appends a topic along with its index from list A in sifted list, if the topic is present in list B.
+    sifted_list_a = [(i, topic) for i, topic in enumerate(list_a) if topic in dict_list_b]
+
+    # A tuple that is used to store the window length, left, right
+    tuple_wllr = float("inf"), None, None
+
+     # Left and right pointers
+    left, right = 0, 0
+    
+    # Look for the topics only in the filtered list instead of entire list.
+    while right < len(sifted_list_a):
+        # Add one topic from the right to the window
+        topic = sifted_list_a[right][1]
+        unique_topics[topic] = unique_topics.get(topic, 0) + 1
+
+        # Checking the frequency of the currently added topic.
+        # If it is equal to the desired count in our list_b then we are incrementing the value of unique_characters.
+        if unique_topics[topic] == dict_list_b[topic]:
+            unique_characters += 1
+
+        # If the current window has all the topics in desired frequencies i.e. it is present in the window
+        while left <= right and unique_characters == count_unique_b:
+            topic = sifted_list_a[left][1]
+
+            # Save the smallest window until now.
+            end_sequence = sifted_list_a[right][0]
+            start_sequence = sifted_list_a[left][0]
+            if end_sequence - start_sequence + 1 < tuple_wllr[0]:
+                tuple_wllr = (end_sequence - start_sequence + 1, start_sequence, end_sequence)
+
+            # The character at the position pointed by the `left` pointer is no longer a part of the window.
+            unique_topics[topic] -= 1
+            if unique_topics[topic] < dict_list_b[topic]:
+                unique_characters -= 1
+            
+            # Moving the left pointer ahead.
+            left += 1    
+
+        # Moving the right pointer ahead.
+        right = right + 1    
+    return [] if tuple_wllr[0] == float("inf") else list_a[tuple_wllr[1] : tuple_wllr[2] + 1]
+
+# Driver Code
+A = ["corona","petrol","corona","corona","climate","petrol","corona","petrol"]
+B = ["corona","petrol","climate"]
+print(smallest_sequence(A, B))

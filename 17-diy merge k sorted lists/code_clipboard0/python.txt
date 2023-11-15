@@ -1,0 +1,5 @@
+from LinkedList import *
+def mergeKLists(lists):
+    # write your code here
+
+    pass

@@ -1,0 +1,4 @@
+def word_ladder2(starting_word, ending_word, word_list):
+  #write your code here
+
+  pass

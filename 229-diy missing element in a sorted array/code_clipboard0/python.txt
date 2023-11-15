@@ -1,0 +1,4 @@
+def missing_element(arr, k):
+  #write your code here
+  
+  pass

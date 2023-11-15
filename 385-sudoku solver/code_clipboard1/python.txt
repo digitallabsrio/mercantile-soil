@@ -1,0 +1,106 @@
+DIGITS = ['1', '2', '3', '4', '5', '6', '7', '8', '9' ]
+    
+def solve_sudoku(board):
+    solve(board, 0, 0)
+    
+def solve(board, r,  c):
+
+    # Move right until you get to end, then restart at next row
+    if c == 9:
+        return solve(board, r + 1, 0)
+
+    # Return True when you have gone through all of the rows
+    if r == 9:
+        return True
+
+    # Move to the next cell if the current cell is already filled
+    if board[r][c] != '.':
+        return solve(board, r, c + 1)
+    
+    for d in DIGITS:
+        if can_play(board, r, c, d):
+            board[r][c] = d
+            
+            # If can solve remaining then done
+            if solve(board, r, c + 1):
+                return True
+            
+            # Backtracking
+            board[r][c] = '.'
+    
+    return False
+    
+def can_play(board, r, c, x):
+    
+    # Check column
+    for i in range(0,9):
+        if board[r][i] == x:
+            return False
+    
+    # Check row
+    for i in range(0,9):
+        if board[i][c] == x:
+            return False
+
+    # Check sub-matrix
+    r0 = 3 * (r//3)
+    r1 = r0 + 3
+    c0 = 3 * (c//3)
+    c1 = c0 + 3
+    for i in range(r0,r1):
+        for j in range(c0,c1):
+            if board[i][j] == x: 
+                return False
+
+    return True
+
+
+
+board = [
+    ['.','.','.','.','.','.','.','7','.'],
+    ['2','7','5','.','.','.','3','1','4'],
+    ['.','.','.','.','2','7','.','5','.'],
+    ['9','8','.','.','.','.','.','3','1'],
+    ['.','3','1','8','.','4','.','.','.'],
+    ['.','.','.','1','.','.','8','.','5'],
+    ['7','.','6','2','.','.','1','8','.'],
+    ['.','9','.','7','.','.','.','.','.'],
+    ['4','1','.','.','.','5','.','.','7']
+]
+
+solve_sudoku(board)
+unsolved_board = [
+    ['.','.','.','.','.','.','.','7','.'],
+    ['2','7','5','.','.','.','3','1','4'],
+    ['.','.','.','.','2','7','.','5','.'],
+    ['9','8','.','.','.','.','.','3','1'],
+    ['.','3','1','8','.','4','.','.','.'],
+    ['.','.','.','1','.','.','8','.','5'],
+    ['7','.','6','2','.','.','1','8','.'],
+    ['.','9','.','7','.','.','.','.','.'],
+    ['4','1','.','.','.','5','.','.','7']
+]
+
+print("     ",end="")
+print("Unsolved Board",end="")
+print("                        ",end="")
+print("Solution",end="")
+print("")
+
+
+for x in range(0,9):
+    for y in range(0,9):
+        if y%3 == 0:
+            print("  ",end="")
+        print(unsolved_board[x][y],end="")
+        print(" ",end="")
+    print("            ",end="")
+    for y in range(0,9):
+        if y%3 == 0:
+            print("  ",end="")
+        print(board[x][y],end="")
+        print(" ",end="")
+
+    if x%3 == 2:
+        print("")
+    print("")

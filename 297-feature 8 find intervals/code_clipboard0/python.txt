@@ -1,0 +1,32 @@
+def find_intervals(prices):
+  # number of predicted prices in the time window
+  n = len(prices)
+
+  intervals = [0]*n
+
+  # initialize a stack to store the indices of the intervals
+  stack = []
+  
+  # iterate over the prices 
+  for c_interval, c_price in enumerate(prices):
+    # current intervals predicted price
+    c_price = prices[c_interval]
+
+    # check if the stack is empty or not and also 
+    # check if the price at current interval is higher than 
+    # the interval's price at top of the stack
+    while stack  and prices[stack[-1]] < c_price:
+      p_interval = stack.pop()
+      intervals[p_interval] = c_interval - p_interval
+
+    # push the current index onto the stack
+    stack.append(c_interval)
+
+  return intervals
+
+# Driver code
+prices = [68,71,78,67,66,69,79,68]
+
+intervals = find_intervals(prices)
+
+print("Minimum Intervals:", intervals)

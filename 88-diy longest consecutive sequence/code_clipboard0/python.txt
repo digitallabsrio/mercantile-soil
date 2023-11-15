@@ -1,0 +1,4 @@
+def LCS(arr):
+  #write your code here
+
+  pass

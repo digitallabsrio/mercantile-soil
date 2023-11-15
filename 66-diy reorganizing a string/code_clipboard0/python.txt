@@ -1,0 +1,3 @@
+def reorganize(str):
+    # write your code here
+    pass 

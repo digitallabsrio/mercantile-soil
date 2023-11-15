@@ -1,0 +1,12 @@
+import math
+
+class ListNode:
+  def __init__(self,value): 
+    self.value = value
+    self.next = None 
+            
+def reverse_linked_list(head, t):
+  
+  # Write your code here
+
+  pass

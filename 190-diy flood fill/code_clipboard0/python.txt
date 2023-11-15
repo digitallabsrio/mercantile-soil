@@ -1,0 +1,4 @@
+def flood_fill(image, sr, sc, new_color):
+  # write your code here
+
+  pass

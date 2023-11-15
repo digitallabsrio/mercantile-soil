@@ -1,0 +1,38 @@
+def update_vlan(matrix, r, c, new_id):
+
+    R, C = len(matrix), len(matrix[0])
+    curr_id = matrix[r][c]
+    if curr_id == new_id: 
+        return matrix
+    
+    def dfs(r, c):
+        
+        # Check bounds of the matrix and check if ID has already been changed or not
+        if r >= 0 and c >= 0 and r < R and c < C and matrix[r][c] == curr_id:  
+            # Assign new ID
+            matrix[r][c] = new_id
+            
+            # Up
+            dfs(r-1, c)
+            # Down
+            dfs(r+1, c)
+            # Left
+            dfs(r, c-1)
+            # Right
+            dfs(r, c+1)
+
+    dfs(r, c)
+    return matrix
+
+# Driver code
+
+matrix = [
+    [1,1,1,1,1],
+    [1,1,1,1,0],
+    [1,1,1,0,0],
+    [1,1,0,1,0],
+    [1,1,0,0,1]
+    ]
+r, c, new_id = 1, 1, 2
+
+print("Swtches with Updated VLAN IDs:\n", update_vlan(matrix, r, c, new_id))

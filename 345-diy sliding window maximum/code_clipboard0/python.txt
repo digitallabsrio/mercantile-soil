@@ -1,0 +1,5 @@
+def win_slide_max(array, size, k) :
+    
+    # Write your code here
+
+  pass

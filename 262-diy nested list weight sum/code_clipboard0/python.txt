@@ -1,0 +1,4 @@
+# Check NestedInteger.py for details regarding the input type. 
+def nested_sum(nested_list):
+    # write your code here
+    pass

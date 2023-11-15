@@ -1,0 +1,25 @@
+from collections import Counter
+from collections import defaultdict
+
+# Declare a FreqStack class containing frequency and group hashmaps
+# and maxFrequency integer
+
+class FreqStack:
+    # Use constructor to initialize the FreqStack object
+    def __init__(self):
+        
+        # Write your code here
+
+        pass
+    # Use push function to push the show_name into the FreqStack
+    def push(self, show_name):
+
+       # Write your code here
+
+        pass
+
+    def pop(self):
+        
+        # Write your code here
+
+        pass

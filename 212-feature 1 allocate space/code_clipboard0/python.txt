@@ -1,0 +1,20 @@
+def allocate_space(processes, new_p):
+    count = 0
+    Sum = 0
+    res = {}
+    res[0] = 1
+    for size in processes:
+        Sum += size
+        if (Sum - new_p) in res:
+            count += res[Sum - new_p]
+        
+        if Sum in res:
+            res[Sum] = res[Sum] + 1
+        else:
+            res[Sum] = 1
+    
+    return count
+
+# Driver code
+processes = [1,2,3,4,5,6,7,1,23,21,3,1,2,1,1,1,1,1,12,2,3,2,3,2,2]
+print(allocate_space(processes, 1))

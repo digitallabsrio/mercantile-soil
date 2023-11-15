@@ -1,0 +1,41 @@
+half_min = -4503599600000000
+MAX_INT = 2147483647      
+MIN_INT = -2147483648
+
+def divide(dividend, divisor):
+  if dividend == MIN_INT and divisor == -1:
+    return MAX_INT
+  
+  negatives = 2
+
+  if dividend > 0:
+    negatives-=1
+    dividend = -dividend
+  
+  if divisor > 0:
+    negatives-=1
+    divisor = -divisor
+  
+  highest_double = divisor
+  highest_two_power = -1
+
+  while highest_double >= half_min and dividend <= highest_double * 2:
+    highest_two_power += highest_two_power
+    highest_double += highest_double
+  
+  quotient = 0
+  while dividend <= divisor:
+    if dividend <= highest_double:
+      quotient += highest_two_power
+      dividend -= highest_double
+    
+    highest_two_power >>= 1
+    highest_double >>= 1
+  
+  if negatives != 1: 
+    return -quotient
+  else:
+    return quotient
+
+
+print(divide(8,2))

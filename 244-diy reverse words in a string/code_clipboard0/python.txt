@@ -1,0 +1,5 @@
+def reverse_words(s): # Remove leading and trailing spaces
+   
+   # Write your code here
+
+   pass

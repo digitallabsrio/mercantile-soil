@@ -1,0 +1,4 @@
+def open_lock(deadends, target):
+  # write your code here
+
+  pass

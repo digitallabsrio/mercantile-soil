@@ -1,0 +1,49 @@
+from TreeNode import TreeNode
+from collections import defaultdict, deque
+
+def verticalOrder(root):
+    if root is None: return []
+
+    node_list = defaultdict(list)
+    min_column = 0
+    max_index = 0
+    queue = deque([(root, 0)])
+
+    while queue:
+        node, column = queue.popleft()
+
+        if node is not None:
+            temp = node_list[column]
+            temp.append(node.val)
+            node_list[column] = temp
+            min_column = min(min_column, column)
+            max_index = max(max_index, column)
+
+            queue.append((node.left, column - 1))
+            queue.append((node.right, column + 1))
+
+    return [node_list[x] for x in range(min_column, max_index + 1)]
+
+root = TreeNode(-10)
+root.left = TreeNode(9)
+root.right = TreeNode(20)
+root.right.left = TreeNode(15)
+root.right.right = TreeNode(7)
+
+root1 = TreeNode(-8)
+root1.left = TreeNode(2)
+root1.right = TreeNode(17)
+root1.left.left = TreeNode(1)
+root1.left.right = TreeNode(4)
+root1.right.left = TreeNode(19)
+root1.right.right = TreeNode(5)
+
+root2 = TreeNode(7)
+root2.left = TreeNode(3)
+root2.right = TreeNode(4)
+root2.right.left = TreeNode(-1)
+root2.right.right = TreeNode(-3)
+
+print(verticalOrder(root))
+print(verticalOrder(root1))
+print(verticalOrder(root2))

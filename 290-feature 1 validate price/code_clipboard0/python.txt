@@ -1,0 +1,56 @@
+class STATE:
+    START, INTEGER, DECIMAL, UNKNOWN, AFTER_DECIMAL = range(5)
+
+def get_next_state(current_state, ch):
+  if (current_state is STATE.START or
+        current_state is STATE.INTEGER):
+    if ch is '.':
+      return STATE.DECIMAL
+    elif ch >= '0' and ch <= '9':
+      return STATE.INTEGER
+    else:
+      return STATE.UNKNOWN
+      
+  if current_state is STATE.DECIMAL:
+    if ch >= '0' and ch <= '9':
+      return STATE.AFTER_DECIMAL
+    else:
+      return STATE.UNKNOWN
+    
+  if current_state is STATE.AFTER_DECIMAL:
+    if ch >= '0' and ch <= '9':
+      return STATE.AFTER_DECIMAL
+    else:
+      return STATE.UNKNOWN
+  return STATE.UNKNOWN
+
+def is_price_valid(s):
+  if not s: 
+    return True
+
+  i = 0
+  if s[i] is '+' or s[i] is '-':
+    i = i + 1
+
+    current_state = STATE.START
+
+    for c in s[i:]:
+      current_state = get_next_state(current_state, c)
+      if current_state is STATE.UNKNOWN:
+        return False
+      i = i + 1
+      
+    if current_state is STATE.DECIMAL:
+      return False;
+    
+    return True
+  return False;
+
+
+print("Is the price valid +40.325? ", is_price_valid("+40.325"))
+print("Is the price valid -1.1.1? ", is_price_valid("-1.1.1"))
+print("Is the price valid -222? ", is_price_valid("-222"))
+print("Is the price valid ++22? ", is_price_valid("++22"))
+print("Is the price valid 10.1? ", is_price_valid("10.1"))
+print("Is the price valid +22.22.? ", is_price_valid("22.22."))
+print("Is the price valid .100? ", is_price_valid(".100"))

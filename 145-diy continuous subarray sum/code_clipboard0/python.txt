@@ -1,0 +1,3 @@
+def check_subarray_sum(nums, k):
+    # write your code here
+    pass

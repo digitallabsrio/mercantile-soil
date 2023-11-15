@@ -1,0 +1,58 @@
+import copy
+import collections
+from collections import defaultdict
+
+def possible_results(beginWord, endWord, wordList):
+    if beginWord == endWord:
+        return [beginWord]
+    
+    graph = collections.defaultdict(set)
+    helper = 'qwertyuiopasdfghjklzxcvbnm'
+    dic_set = set(wordList)
+    
+    layer = set([beginWord])
+    dic_set.discard(beginWord)
+    
+    stop = False
+    while len(layer) > 0 and not stop:
+        new_layer = set()
+        for w in layer:
+            # construct next word, O(len(word) * 26)
+            for i in range(len(w)):
+                for c in helper:
+                    nw = w[:i] + c + w[i+1:]
+                    
+                    if nw in dic_set:
+                        new_layer.add(nw)
+                        graph[w].add(nw)
+                    
+                    # if we find endWord in this layer, there is no need to do next layer
+                    if nw == endWord:
+                        stop = True
+        
+        # removing unecessary nodes
+        dic_set -= new_layer
+        layer = new_layer
+            
+    ans = []
+    path = [beginWord]
+    
+    # find the paths with dfs
+    def dfs(w):
+        if w == endWord:
+            ans.append(copy.copy(path))
+        else:
+            for nw in graph[w]:
+                path.append(nw)
+                dfs(nw)
+                path.pop()
+            
+    dfs(beginWord)
+    
+    return ans
+
+# Driver code
+initial_word = "hit"
+final_word = "cog"
+word_group = ["hot","dot","dog","lot","log","cog","lit"]
+print("All minimum sequences are:\n", possible_results(initial_word, final_word, word_group))

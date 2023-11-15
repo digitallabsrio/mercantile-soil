@@ -1,0 +1,5 @@
+def string_compression(chars):
+
+  # write your code here
+
+  return -1

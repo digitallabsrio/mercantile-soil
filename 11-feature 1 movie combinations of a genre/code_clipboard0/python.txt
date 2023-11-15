@@ -1,0 +1,63 @@
+combinations = []
+# Use backtrack function to generate all possible combinations
+def backtrack(index, path, categories, movies): 
+  # If the length of path and categories is same, 
+  # we have a complete combinations            
+  if len(path) == len(categories): 
+      s = ""
+      s = s.join(path)
+      combinations.append( s )
+      #print(combinations)
+      return # Backtrack
+  
+  # Using the index and categories[index], get the list of movies 
+  possible_movies = movies[categories[index]]
+  if possible_movies:
+    for movie in possible_movies:
+        # Add the movie to our current path
+        path.append(movie+ ';')
+        # Move on to the next category
+        backtrack(index + 1, path, categories, movies)
+        # Backtrack by removing the movie before moving onto the next
+        path.pop()
+
+def movie_combinations(categories):
+  # If the input is empty, immediately return an empty answer array
+  if len(categories) == 0 :
+      return []
+  
+  #  Mapping the categories to their corresponding movies
+  movies = {
+  "Family" :["Frozen","Kung fu Panda", "Ice Age"], 
+  "Action" :["Iron Man","Wonder Woman","Avengers"],
+  "Fantasy" :["Jumangi", "Lion King", "Tarzan"],
+  "Comedy" :["Coco", "The Croods", "Vivi","Pets"],
+  "Horror" :["Oculus", "Sinister","Insidious","Annebelle"] }
+      
+  # Initiate backtracking with an empty path and starting index of 0
+  
+  backtrack(0, [], categories, movies)
+  return combinations
+
+#Example 1
+categories = ["Action"]
+print("Output 1:")
+print(movie_combinations(categories))
+
+# Example 2
+categories = ["Family", "Action"]
+combinations = []
+print("Output 2:")
+print(movie_combinations(categories))
+
+# Example 3
+categories = ["Horror", "Comedy"]
+combinations = []
+print("Output 3:")
+print(movie_combinations(categories))
+
+# Example 4
+categories = ["Horror", "Fantasy", "Comedy", "Family"]
+combinations = []
+print("Output 4:")
+print(movie_combinations(categories))

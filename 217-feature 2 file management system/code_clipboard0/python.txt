@@ -1,0 +1,82 @@
+class TrieNode:
+  def __init__(self):
+    self.nodes = []
+    self.complete = False
+    for i in range (0, 26):
+      self.nodes.append(None)
+
+class FileSystem:
+  def __init__(self):
+    self.root = TrieNode()
+    self.can_find = False
+
+  def get_all(self):
+    names = []
+    if not self.root:
+      return [] 
+    return self.dfs(self.root, "", names)
+    
+  def dfs(self, node, word, names):
+    if not node:
+        return names
+    if node.complete: 
+        names.append(word)
+
+    for j in range(ord('a'),ord('z')+1):
+        n = word +chr(j)
+        names = self.dfs(node.nodes[j - ord('a')],n,names)
+    return names
+
+  def add_word(self,word):
+    n = len(word)
+    cur_node = self.root 
+    for i,val in enumerate(word):
+      index = ord(val) - ord('a')
+      if cur_node.nodes[index] == None:
+        cur_node.nodes[index] = TrieNode()
+      cur_node = cur_node.nodes[index]
+      if i == n - 1:
+        if cur_node.complete:
+          print("Word already present")
+          return
+        cur_node.complete = True
+
+  def search(self, word):
+    self.can_find = False
+    self.depth_first_search(self.root, word, 0)
+    return self.can_find
+
+  def depth_first_search(self, root, word, i): 
+    if self.can_find:
+        return
+    if not root:
+        return
+    if len(word) == i: 
+        if root.complete:
+            self.can_find = True
+        return 
+    
+    if word[i] == '.':
+      for j in range (ord('a'),ord('z')+1):
+        self.depth_first_search(root.nodes[j - ord('a')], word, i + 1)
+    else:
+      index = ord(word[i]) - ord('a')
+      self.depth_first_search(root.nodes[index], word, i + 1)
+    
+# FileSystem()
+print("Initializing object") 
+obj =  FileSystem() 
+print("add_wording \'dir\' as a directory") 
+obj.add_word("dir") 
+print("Adding \'dir\' as a directory again") 
+obj.add_word("dir") 
+print("Adding \'dirr\' as a directory") 
+obj.add_word("dirr") 
+print("Adding \'file\' as a file") 
+obj.add_word("file") 
+print("Searching if \'.ile\' exists") 
+print(obj.search(".ile")) 
+print("Searching if \'..ile\' exists") 
+print(obj.search("..ile")) 
+print("Getting all of the files\\directories:") 
+print(obj.get_all())

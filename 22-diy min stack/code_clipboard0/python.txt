@@ -1,0 +1,28 @@
+from Stack import my_stack
+# Create Stack => stack = myStack(5); where 5 is size of stack
+# Create Queue => queue = myQueue(5); where 5 is size of queue
+# Stack Functions => isEmpty(), isFull(), top()
+# Queue Functions => enqueue(int),dequeue(),isEmpty(),getSize()
+
+class min_stack:
+    # Constructor
+    def __init__(self):
+        # Write your code here
+        return None
+        # Removes and return value from newStack
+
+    def pop(self):
+        # Write your code here
+        return -1
+
+        # Pushes values into newStack
+    def push(self, value):
+        # Write your code here
+        return False
+
+        # Returns minimum value from newStack in O(1) Time
+    def min(self):
+        # Write your code here
+        pass
+
+    # Write any helper functions here

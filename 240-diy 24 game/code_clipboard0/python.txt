@@ -1,0 +1,5 @@
+def game24(cards):
+    
+    # Write your code here
+
+    pass

@@ -1,0 +1,3 @@
+def minimum_knight_moves(x, y):
+    # Write your code here
+    pass

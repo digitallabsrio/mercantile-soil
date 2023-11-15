@@ -1,0 +1,6 @@
+from TreeNode import *
+
+def distanceK(root, target, K):
+  #write your code here
+  
+  pass

@@ -1,0 +1,82 @@
+def find_global_profile(tweets):
+    # Finding the lenght of the tweets list
+    tweets_len = len(tweets)
+
+    # If the tweets list is empty, return an empty list.
+    if tweets_len == 0:
+        return []
+
+     # If there is only tweet in the list, return the required coordinates 
+    if tweets_len == 1:
+        start_x_coordinate, end_x_coordinate, peak_mentions = tweets[0]
+        return [[start_x_coordinate, peak_mentions], [end_x_coordinate, 0]]
+
+    #If there is more than one tweet, keep dividing the tweets recurssively into two parts.
+    startTweets = find_global_profile(tweets[: tweets_len // 2])
+    endTweets = find_global_profile(tweets[tweets_len // 2 :])
+
+    # Merge the divided tweets together.
+    return merge_global_profiles(startTweets, endTweets)
+
+def update_global_profile(x_coordinate, y_coordinate, global_profile):
+    # Updating and returning our global profile 
+
+    # add a new point if our global profile has not changed vertically.
+    if not global_profile or global_profile[-1][0] != x_coordinate:
+        global_profile.append([x_coordinate, y_coordinate])
+    
+    # update the last point if our global profile has changed vertically
+    else:
+        global_profile[-1][1] = y_coordinate
+
+    return global_profile
+
+def append_global_profile(curr_index, tweets_list, tweets_list_len, y_coordinate, c_mentions,global_profile):
+    # From our current index, append the rest of the elements to our final global profile.
+    while curr_index < tweets_list_len:
+        x_coordinate, y_coordinate = tweets_list[curr_index]
+        curr_index += 1
+        if c_mentions != y_coordinate:
+            global_profile = update_global_profile(x_coordinate, y_coordinate,global_profile)
+            c_mentions = y_coordinate
+
+def merge_global_profiles(startTweets, endTweets):
+    # Storing the lengths of both global profiles i.e., starting tweets and ending tweets.
+    len_start, len_end = len(startTweets), len(endTweets)
+
+    # initializing the variables.
+    iStart = iEnd = 0
+    c_mentions  = start_y = end_y = 0
+    global_profile = []
+
+    # while we're in the region where both global_profiles are present
+    while iStart < len_start and iEnd < len_end:
+        start_point, end_point = startTweets[iStart], endTweets[iEnd]
+
+        # pick up the smallest x
+        if start_point[0] < end_point[0]:
+            x_coordinate, start_y = start_point
+            iStart += 1
+        else:
+            x_coordinate, end_y = end_point
+            iEnd += 1
+        # max height (i.e. y) between both global_profiles
+        max_peak_mentions = max(start_y, end_y)
+
+        # if there is a global_profile change
+        if c_mentions != max_peak_mentions:
+            global_profile = update_global_profile(x_coordinate, max_peak_mentions,global_profile)
+            c_mentions = max_peak_mentions
+
+    # there is only startTweets global_profile
+    append_global_profile(iStart, startTweets, len_start, start_y, c_mentions, global_profile)
+
+    # there is only endTweets global_profile
+    append_global_profile(iEnd, endTweets, len_end, end_y, c_mentions, global_profile)
+
+    return global_profile
+
+
+### Driver code
+tweets = [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]
+print(find_global_profile(tweets))

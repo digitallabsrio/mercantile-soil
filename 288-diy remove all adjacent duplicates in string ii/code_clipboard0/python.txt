@@ -1,0 +1,5 @@
+def remove_duplicates(str, k):
+    
+    # Write your code here
+
+    pass

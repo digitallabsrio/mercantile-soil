@@ -1,0 +1,4 @@
+def jump(nums):
+  # write your code here
+
+  pass

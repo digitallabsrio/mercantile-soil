@@ -1,0 +1,28 @@
+from heapq import *
+def top_brokers(broker_ids, k):
+
+  # find the frequency of each number
+  num_frequency_map = {}
+  for num in broker_ids:
+    num_frequency_map[num] = num_frequency_map.get(num, 0) + 1
+  min_heap = []
+
+  # go through all numbers of the num_frequency_map and push them in the min_heap, which will have
+  # top k frequent numbers. If the heap size is more than k, we remove the smallest(top) number
+  for num, frequency in num_frequency_map.items():
+    heappush(min_heap, (frequency, num))
+    if len(min_heap) > k:
+      heappop(min_heap)
+
+  # create a list of top k numbers
+  top_numbers = []
+  while min_heap:
+    top_numbers.append(heappop(min_heap)[1])
+
+  return top_numbers
+
+
+# Driver code
+
+print("Here are the IDs of the top K brokers of the quarter: ",
+      str(top_brokers([1, 3, 5, 12, 11, 12, 11, 12, 5], 3)))

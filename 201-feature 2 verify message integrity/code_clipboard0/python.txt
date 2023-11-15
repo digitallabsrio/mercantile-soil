@@ -1,0 +1,33 @@
+def verify_message_integrity(messages, key):
+  if len(messages) == 1:
+    return True
+  keyMap = {}
+
+  for index,val in enumerate(key): # can cause errors
+    keyMap[val] = index
+
+  for  i in range (0,len(messages) - 1):
+    for  j in range (0,len(messages[i])):
+      # If we do not find a mismatch letter between messages[i] and messages[i + 1],
+      # we need to examine the case when messages are like ("educated", "educate").
+      if j >= len(messages[i + 1]):
+       return False
+
+      if messages[i][j] != messages[i + 1][j]:
+        if keyMap[messages[i][j]] > keyMap[messages[i + 1][j]]:
+          return False
+        else:
+          # if we find the first different character and they are sorted,
+          # then there's no need to check remaining letters
+          break
+  return True
+
+# Driver Code
+
+messages = ["alpha", "bravo", "charlie", "delta"]
+key = "abcdlpite"
+print(verify_message_integrity(messages, key))
+
+messages2 = ["apple", "app"]
+key = "apple"
+print(verify_message_integrity(messages2, key))

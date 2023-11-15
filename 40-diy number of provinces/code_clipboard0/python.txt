@@ -1,0 +1,5 @@
+def find_provinces_num(is_connected):
+    
+    # write your code here
+    
+    pass

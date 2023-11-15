@@ -1,0 +1,17 @@
+def reverse_commands(s): # Remove leading and trailing spaces
+    s = s.strip()
+    # Split the string by multiple spaces
+    word_list = s.split(" ")
+    # Reverse the wordList
+    word_list = reversed(word_list)
+    
+    result =[]
+    for i in word_list:
+      if i:
+        result.append(i)
+
+    return " ".join(result)
+
+# Driver Code
+
+print(reverse_commands(" *.html pages.tar.gz czvf tar "))

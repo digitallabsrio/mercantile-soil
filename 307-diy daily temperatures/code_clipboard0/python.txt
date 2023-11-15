@@ -1,0 +1,5 @@
+def daily_temperatures(temperatures):
+ 
+  # Write your code here
+
+  pass

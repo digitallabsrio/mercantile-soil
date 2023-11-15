@@ -1,0 +1,15 @@
+class Tree(object):
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right    
+
+class Construct_Binary_Tree:
+    def build_binary_tree(self, preorder, inorder) -> Tree:
+
+        # you will initialize your tree like this 
+        #tree = Tree(val)
+        
+        # Write your code here
+
+        pass

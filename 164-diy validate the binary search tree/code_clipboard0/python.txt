@@ -1,0 +1,5 @@
+def inorder_BST(array, n):
+    
+    # Write your code here
+
+    pass

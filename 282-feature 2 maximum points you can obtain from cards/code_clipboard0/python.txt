@@ -1,0 +1,16 @@
+def max_points(deck, k) :
+    left = 0
+    right = len(deck) - k
+    total = sum(deck[right:])
+    best = total
+    for _ in range(k):
+        total += deck[left] - deck[right]
+        best = max(best, total)
+        left += 1
+        right += 1
+    return best 
+
+## Driver code
+deck = [5,3,4,4,2,3,2,6,3] 
+k = 4
+print(max_points(deck, k))

@@ -1,0 +1,4 @@
+def largest_rectangle_area(heights):
+  # write your code here
+
+  pass

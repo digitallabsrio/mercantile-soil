@@ -1,0 +1,10 @@
+class median_of_stream:
+  def insert_num(self, num):
+    # write your code here
+
+    pass
+
+  def find_median(self):
+    # write your code here
+    
+    pass

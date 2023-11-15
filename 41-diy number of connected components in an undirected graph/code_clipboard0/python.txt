@@ -1,0 +1,5 @@
+def count_connected_comp(edges, n):
+    
+    # write your code here
+    
+    pass

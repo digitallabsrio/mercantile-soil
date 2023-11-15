@@ -1,0 +1,48 @@
+from random import choice
+class UpsellProducts():
+    def __init__(self):
+        self.product_dict = {}
+        self.product_list = []
+
+        
+    def insertProduct(self, prod) :
+        """
+        Inserts a product to the database. 
+        """
+        if prod in self.product_dict:
+            return False
+        self.product_dict[prod] = len(self.product_list)
+        self.product_list.append(prod)
+        return True
+        
+
+    def removeProduct(self, prod):
+        """
+        Removes a product from the database. 
+        """
+        if prod in self.product_dict:
+            # move the last product to the place i of the product to delete
+            last_product, i = self.product_list[-1], self.product_dict[prod]
+            self.product_list[i], self.product_dict[last_product] = last_product, i
+            # delete the last product
+            self.product_list.pop()
+            del self.product_dict[prod]
+            return True
+        return False
+
+    def getRandomProduct(self):
+        """
+        Get a random product from the database in constant time.
+        """
+        return choice(self.product_list)
+
+# Driver code
+dataset = UpsellProducts()
+dataset.insertProduct(1212)
+dataset.insertProduct(190)
+dataset.insertProduct(655)
+dataset.insertProduct(327)
+print(dataset.getRandomProduct())
+dataset.removeProduct(190)
+dataset.removeProduct(655)
+print(dataset.getRandomProduct())

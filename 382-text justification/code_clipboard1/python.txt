@@ -1,0 +1,39 @@
+def text_justify(words, width):
+
+  n = len(words)
+  result = []
+
+  i=0
+
+  while i < n:
+    length = -1
+    j = i
+    while  j < n and length + 1 + len(words[j]) <= width:
+      length += 1 + len(words[j])
+      j+=1
+    
+    spaces = 1
+    extra = 0 # extra left spaces
+
+    if j != i + 1 and j != n:
+      spaces = (width - length) // (j - 1 - i) + 1
+      extra = (width - length) % (j - 1 - i)
+    
+    # Build the row with spaces + extra space + word
+    row = words[i]
+
+    for k  in  range(i + 1,j):
+
+      row += ' '* (spaces + (1 if extra > 0 else 0 )) + words[k]
+      extra -=1
+    
+    row += ' '*(width - len(row))
+    result.append(row)
+    i = j
+  
+  return result
+
+words = ["The", "important", "is", "not", "to", "stop", "questioning"]
+width = 16
+
+print(text_justify(words,width))

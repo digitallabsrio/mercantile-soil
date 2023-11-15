@@ -1,0 +1,12 @@
+class TreeNode:
+    def __init__(self, val=0, left = None, right = None, parent = None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.parent = parent
+
+def lowest_common_ancestor(node1, node2):
+    
+    # Write your code here
+
+    pass

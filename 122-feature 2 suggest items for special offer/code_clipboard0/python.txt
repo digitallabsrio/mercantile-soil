@@ -1,0 +1,25 @@
+def suggest_three_products(item_prices):
+    res = []
+    item_prices.sort()
+    for i in range(len(item_prices)):
+        if item_prices[i] > 200:
+            break
+        if i == 0 or item_prices[i - 1] != item_prices[i]:
+            two_products(item_prices, i, res)
+    return res
+
+def two_products(item_prices, i, res):
+    seen = set()
+    j = i + 1
+    while j < len(item_prices):
+        complement = 200 - item_prices[i] - item_prices[j]
+        if complement in seen:
+            res.append([item_prices[i], item_prices[j], complement])
+            while j + 1 < len(item_prices) and item_prices[j] == item_prices[j + 1]:
+                j += 1
+        seen.add(item_prices[j])
+        j += 1
+
+## Driver code
+item_prices = [100, 75, 150, 200, 50, 65, 40, 30, 15, 25, 60]
+print(suggest_three_products(item_prices))

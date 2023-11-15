@@ -1,0 +1,5 @@
+def longest_ones(nums,k):
+    
+    # Write your code here
+    
+    pass

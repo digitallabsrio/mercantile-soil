@@ -1,0 +1,12 @@
+class SnapshotArray:
+  def __init__(self,length):
+    pass
+    
+  def set_value(self,idx,val):
+    pass
+  
+  def snapshot(self):
+    pass
+  
+  def get_value(self,idx,snapid):
+    pass

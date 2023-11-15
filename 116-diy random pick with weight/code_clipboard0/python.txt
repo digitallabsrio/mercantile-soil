@@ -1,0 +1,33 @@
+class random_pick_with_weight:
+  # write your code here
+
+  def __init__(self, w):
+
+    pass
+
+  def pick_index(self):
+    
+    return 0
+
+
+frequencies = {}
+distributions1 = [1, 2, 3, 4, 5]
+sol = random_pick_with_weight(distributions1)
+for i in range(0,100):
+    index = sol.pick_index()
+    if index >= 0 and index < len(distributions1):
+        element = distributions1[index]
+        frequencies[element] = frequencies.get(element, 0) +1 
+    
+print(frequencies)
+
+frequencies2 = {}
+distributions2 = [1, 12, 23, 34, 45, 56, 67, 78, 89, 90]
+sol2 = random_pick_with_weight(distributions2)
+for i in range(0,100):
+    index = sol2.pick_index()
+    if index >= 0 and index < len(distributions2):
+        element = distributions2[index]
+        frequencies2[element] = frequencies2.get(element, 0) +1 
+   
+print(frequencies2)

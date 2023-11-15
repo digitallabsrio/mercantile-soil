@@ -1,0 +1,5 @@
+def permute(movies):
+
+  # Write your code hete
+
+  pass

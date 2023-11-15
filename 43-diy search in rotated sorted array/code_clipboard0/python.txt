@@ -1,0 +1,4 @@
+def search_rotated(arr, key):
+  # write your code here
+
+  pass

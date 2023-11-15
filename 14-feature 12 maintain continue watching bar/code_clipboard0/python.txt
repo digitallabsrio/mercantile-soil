@@ -1,0 +1,60 @@
+from collections import Counter
+from collections import defaultdict
+
+# Declare a FreqStack class containing frequency and group hashmaps
+# and maxFrequency integer
+
+class FreqStack:
+    # Use constructor to initialize the FreqStack object
+    def __init__(self):
+        self.frequency = Counter()
+        self.group = defaultdict(list)
+        self.max_frequency = 0
+
+    # Use push function to push the show_name into the FreqStack
+    def push(self, show_name):
+
+        # Get the frequency for the given show_name and 
+        # increment the frequency for the given show_name
+        f = self.frequency[show_name] + 1
+        self.frequency[show_name] = f
+
+        # Check if the maximum frequency is lower that the new frequency
+        # of the given show
+
+        if f > self.max_frequency:
+            self.max_frequency = f
+
+        # Save the given showName for the new calculated frequency
+        self.group[f].append(show_name)
+
+    def pop(self):
+        show = ""
+
+
+        if self.max_frequency > 0:
+
+            # Fetch the top of the group[maxFrequency] stack and 
+            # pop the top of the group[maxFrequency] stack
+
+            show = self.group[self.max_frequency].pop()
+
+            # Decrement the frequency after the show has been popped
+            self.frequency[show] -= 1
+            if not self.group[self.max_frequency]:
+                self.max_frequency -= 1
+
+        return show
+
+obj = FreqStack()
+obj.push("Queen's Gambit")
+obj.push("Teen Wolf")
+obj.push("Queen's Gambit")
+obj.push("Teen Wolf")
+obj.push("Bigderton")
+obj.push("Queen's Gambit")
+
+for  i in range(0,7):
+    print("...User navigates to the browser...")
+    print("Continue Watching :" , obj.pop())
+    print()

@@ -1,0 +1,34 @@
+def maximum_row_area(heights):
+
+    # Initialize stack with the default L value
+    stack = [-1]
+
+    max_area = 0
+    for i in range(len(heights)):
+
+        while stack[-1] != -1 and heights[stack[-1]] >= heights[i]:
+            height = heights[stack.pop()]
+
+            R = i
+            L = stack[-1]
+            width = (R - L) - 1
+            area = height * width
+            max_area = max(max_area, area)
+        stack.append(i)
+
+    # Case when no valid R value exists anymore
+    while stack[-1] != -1:
+        height = heights[stack.pop()]
+            
+        R = len(heights)
+        L = stack[-1]
+        width = (R - L) - 1
+        area = height * width
+        max_area = max(max_area, area)
+
+    return max_area
+
+# Driver code
+
+heights = [2,1,5,6,2,3]
+print("Maximum Row Area:", maximum_row_area(heights))

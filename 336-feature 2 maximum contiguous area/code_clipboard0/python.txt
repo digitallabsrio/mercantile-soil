@@ -1,0 +1,49 @@
+def is_visited(visited, r, c):
+  # return whether the cell was visited or not.
+  if (r,c) not in visited:
+      return False
+    
+  return True 
+   
+def  area(grid, visited, r, c) :
+    if (r < 0  or r >= len(grid) or c < 0  or c >= len(grid[0])  or 
+        is_visited(visited, r, c)  or grid[r][c] == 0):
+        return 0 
+    visited.add((r,c)) 
+    return (1 + area(grid, visited, r+1, c) + area(grid, visited, r-1, c) + area(grid, visited, r, c- 1) + area(grid, visited, r, c+1)) 
+   
+def  max_contagious_area(grid) :
+    visited = set()
+    ans = 0 
+    for r in range (0,len(grid)) :
+      for c in range (len(grid[0])):
+        ans = max(ans, area(grid, visited, r, c)) 
+       
+    return ans 
+     
+# Driver code
+# Example - 1
+grid = [
+    [0, 0, 1, 1, 0, 1],
+    [0, 0, 1, 0, 0, 0],
+    [1, 1, 1, 0, 1, 1],
+    [0, 1, 0, 1, 0, 0],
+    [1, 0, 1, 0, 0, 1],
+]
+print("Maximum Contiguous Area: " , max_contagious_area(grid)) 
+
+# Example - 2
+grid = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+]
+print("Maximum Contiguous Area: " , max_contagious_area(grid)) 
+
+# Example - 3
+grid =[
+    [1, 0, 1],
+    [0, 0, 0],
+    [1, 0, 1]
+]
+print("Maximum Contiguous Area: " , max_contagious_area(grid)) 

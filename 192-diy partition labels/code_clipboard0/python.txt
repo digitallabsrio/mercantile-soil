@@ -1,0 +1,4 @@
+def partition_labels(s):
+  # write your code here
+
+  pass

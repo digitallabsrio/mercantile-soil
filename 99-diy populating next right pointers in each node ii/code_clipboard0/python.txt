@@ -1,0 +1,6 @@
+from TreeNode import *
+
+def traverse(root):
+  # write your code here
+  
+  return root

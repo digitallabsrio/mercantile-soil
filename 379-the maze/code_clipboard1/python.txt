@@ -1,0 +1,41 @@
+maze = [[0,0,0,0,1],
+        [0,0,1,1,1],
+        [0,0,0,0,0],
+        [1,1,1,1,0],
+        [0,0,0,0,0]] 
+
+start = [0,3] 
+end = [4,3]
+
+def has_path(maze, start, end):
+    visited_places = [[False for i in range(len(maze[0]))]for j in range(len(maze))]
+    
+    return path(maze, start, end, visited_places)
+
+def path(maze, start, end, visited_places):
+    if visited_places[start[0]][start[1]]:
+        return False
+    if start[0] == end[0] and start[1] == end[1]:
+        return True
+    visited_places[start[0]][start[1]] = True
+    #r = start[1] + 1, l = start[1] - 1, u = start[0] - 1, d = start[0] + 1
+    r, l, u, d  = start[1] + 1, start[1] - 1,  start[0] - 1, start[0] + 1
+    while u >= 0 and maze[u][start[1]] == 0: #up
+        u-=1
+    if path(maze, [u + 1, start[1]], end, visited_places):
+        return True
+    while d < len(maze) and maze[d][start[1]] == 0: #down
+        d+=1
+    if path(maze, [d - 1, start[1]], end, visited_places):
+        return True
+    while l >= 0 and maze[start[0]][l] == 0: #left
+        l-=1
+    if path(maze, [start[0], l + 1], end, visited_places):
+        return True
+    while r < len(maze[0]) and maze[start[0]][r] == 0: # right
+        r+=1
+    if path(maze, [start[0], r - 1], end, visited_places):
+        return True 
+    return False
+
+print(has_path(maze, start, end));

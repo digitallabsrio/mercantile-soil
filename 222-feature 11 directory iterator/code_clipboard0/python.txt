@@ -1,0 +1,38 @@
+class NestedDirectories:
+  # Constructor initializes a single file if a value has been passed
+  # else initializes an empty list
+  def __init__(self, opt_parm = None):
+    if opt_parm:
+      self.file = opt_parm 
+    else:
+      self.n_list = []
+      self.file =  0 
+
+  # return true if this NestedDirectories holds a single file, rather than a nested list.
+  def is_file(self):
+    if self.file:
+      return True
+    return False
+
+  # return the single file that this NestedDirectories holds, if it holds a single file
+  # Return null if this NestedDirectories holds a nested list
+  def get_file(self):
+    return self.file
+
+  #  Set this NestedDirectories to hold a single file.
+  def set_file(self,value):
+    self.n_list = None
+    self.file =  value
+
+  # Set this NestedDirectories to hold a nested list and adds a nested file to it.
+  def add(self,ni):
+    if self.file:
+      self.n_list = [] 
+      self.n_list.append(NestedDirectories(self.file)) 
+      self.file = None
+    self.n_list.append(ni) 
+
+    # return the nested list that this NestedDirectories holds, if it holds a nested list
+    # Return null if this NestedDirectories holds a single file
+  def get_list(self):
+    return self.n_list 

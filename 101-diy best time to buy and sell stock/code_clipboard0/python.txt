@@ -1,0 +1,4 @@
+def max_profit(arr):
+    # write your code here
+    
+    pass

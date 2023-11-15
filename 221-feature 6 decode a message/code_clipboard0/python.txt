@@ -1,0 +1,81 @@
+process = []
+
+def ShowSteps():
+  print("Here are the steps:") 
+  print(process[0]) 
+  print(process[1]) 
+  print(process[2]) 
+
+def decode_message(nums, target):
+    if len(nums) == 0:
+        return False
+    return Dfs([float(x) for x in nums], target)
+
+def Dfs(nums,target):
+    if len (nums) == 1:
+        return abs(nums[0] - target) <= 0.001
+
+    for i in range(0,len(nums)):      
+        for j in range(0,len(nums)):
+            if i == j:
+                continue 
+ 
+            next_nums = []
+            for k in range(0,len(nums)):
+                if k == j or k == i:
+                    continue 
+                
+                next_nums.append(nums[k])
+            
+            num1 = nums[i]
+            num2 = nums[j]
+            
+            if i < j:
+                next_nums.append(num1 + num2)
+                process.append(str(num1)+ "+" +str(num2)+ ' = ' + str(num1+num2)) 
+                if Dfs(next_nums, target):
+                    return True 
+                
+                # Back track                    
+                next_nums.pop() 
+                process.pop()
+                
+                next_nums.append(num1 * num2) 
+                process.append(str(num1)+ "*" +str(num2)+ ' = ' + str(num1*num2))     
+                if Dfs(next_nums, target):
+                    return True
+                
+                # Back track                    
+                next_nums.pop()
+                process.pop()
+            
+            next_nums.append(num1 - num2) 
+            process.append(str(num1)+ "-" +str(num2)+ ' = ' + str(num1-num2))
+            if Dfs(next_nums, target):
+                return True 
+                
+            # Back track                    
+            next_nums.pop()
+            process.pop()
+
+            if num2 ==0:
+                next_nums.append(float('inf'))
+                process.append(str(num1)+ "/" +str(num2)+ ' = ' + str(float('inf')))                     
+            else:    
+                next_nums.append(num1 / num2)                     
+                process.append(str(num1)+ "/" +str(num2)+ ' = ' + str(num1/num2))                     
+            if Dfs(next_nums, target):
+                return True 
+                
+            # Back track                    
+            next_nums.pop()
+            process.pop()
+    return False
+    
+# Driver Code
+
+message = [1,5,5,8]
+mdigest = 30
+print(decode_message(message, mdigest))
+if len(process) > 0:
+    ShowSteps() 

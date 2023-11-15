@@ -1,0 +1,5 @@
+def find_kth_positive(A, k):
+    
+  # Write your code here
+
+  pass

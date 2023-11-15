@@ -1,0 +1,5 @@
+def my_atoi(s):
+  
+  # Write your code here
+
+  pass

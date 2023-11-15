@@ -1,0 +1,4 @@
+def longest_subarray(nums, limit):
+  # write your code here
+
+  pass

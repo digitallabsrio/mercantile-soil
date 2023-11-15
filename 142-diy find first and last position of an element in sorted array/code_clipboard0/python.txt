@@ -1,0 +1,3 @@
+def findRange(numbers, target):
+    # write your code here
+    pass

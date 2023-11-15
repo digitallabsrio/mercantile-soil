@@ -1,0 +1,5 @@
+def min_area_rectangle(points):
+
+    # Write your code here
+
+    pass 

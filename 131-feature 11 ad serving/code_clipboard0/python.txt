@@ -1,0 +1,86 @@
+# bufferself.State maintains the self.state of buff that is passed to read4()
+class bufferState:
+    def __init__(self):
+        self.buff = []
+        self.ptr = 0
+        self.count = 0
+
+  # implement read(n) below.
+class ServeAds:
+  def __init__(self):
+    self.state = bufferState() # Initializing the bufferself.State struct
+  
+  def read(self,buffer, n):
+      i = 0
+
+      while i < n:  # Reading the ads list till the given n
+        # If ptr is 0 call the read4() API and read 4 ads from the list of ads
+        if self.state.ptr == 0: 
+          self.state.buff = read4(self.state.buff)
+          self.state.count = len(self.state.buff)
+          
+        # Break the loop if list of ads is empty or read4() returns 0 
+        if self.state.count == 0:
+          break
+
+        # Fill the buffer array using the already filled buff array
+        # till the n ads.
+        while i < n and self.state.ptr < self.state.count:
+          # Append the ad to buffer
+          buffer.append(self.state.buff[self.state.ptr])
+          i+=1
+          self.state.ptr+=1
+
+        # If ptr exceeds or reaches the count, the ptr will be set to 0
+        if self.state.ptr >= self.state.count:
+          self.state.ptr = 0
+
+      return i # Return the number of ads read 
+
+# Global variables
+
+# Global variables
+count = 0
+buffer = []
+ads = "abcdhijk"
+server = ServeAds()
+# Driver Code
+# List of ads
+print("Ads:",ads)
+queries = [3,5,2]
+
+#Example 1
+print("Example #1")
+print("User: Read" , queries[0] , "ads.")
+print("...reading" , queries[0] , "ads...")
+count = server.read(buffer,queries[0])
+print("Ads count read by read(n):",count)
+sb = ""
+for c in buffer:
+  sb = sb+c
+
+print("Ads read by read(n):", sb)
+
+#Example 2
+print("Example #2")
+print("User: Read" , queries[1] , "ads.")
+buffer = [] # Resetting the buffer
+print("...reading" , queries[1] , "ads...")
+count = server.read(buffer,queries[1])
+print("Ads count read by read(n):",count)
+sb = ""
+for c in buffer:
+  sb = sb+c
+print("Ads read by read(n):", sb)
+
+#Example 3
+print("Example #3")
+print("User: Read" , queries[2] , "ads")
+buffer = [] # Resetting the buffer
+print("...reading" , queries[2] , "ads...")
+count = server.read(buffer,queries[2])
+sb = ""
+for c in buffer:
+  sb = sb+c
+print("Ads count read by read(n):",count)
+print("Ads read by read(n):", sb)

@@ -1,0 +1,46 @@
+class Node():
+    def __init__(self):
+        self.children = {}
+        self.isWord = False
+    
+class WordDictionary():
+    def __init__(self):
+        self.root = Node()
+    
+    def insertWord(self, word):
+        node = self.root
+        for c in word:
+            if c not in node.children:
+                node.children[c] = Node()
+            node = node.children.get(c)
+        node.isWord = True
+    
+    def searchWord(self, word):
+        node = self.root
+        for c in word:
+            if c not in node.children:
+                return False
+            node = node.children.get(c)
+        return node.isWord
+    
+    def startsWith(self, prefix):
+        node = self.root
+        for c in prefix:
+            if c not in node.children:
+                return False
+            node = node.children.get(c)
+        return True
+
+## Driver Code
+keys = ["the", "a", "there", "answer", "any",
+        "by", "bye", "their", "abc"]
+print("Keys to insert: ")
+print(keys)
+
+d = WordDictionary()
+
+for i in range(len(keys)):
+    d.insertWord(keys[i])
+
+print("Searching 'there' in the dictionary results: " + str(d.searchWord("there")))
+print("Searching the prefix 'by' in the dictionary results: " + str(d.startsWith("by")))

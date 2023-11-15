@@ -1,0 +1,26 @@
+from LinkedList import *
+
+class LFU_cache:
+
+  def __init__(self, capacity):
+    self.capacity = capacity
+    self.cache = {}
+    self.cache_vals = LinkedList()
+
+  def Set(self, key, value):
+    # write your code here
+
+    return
+  
+  def Get(self, key):
+    # write your code here
+    
+    return -1
+      
+  def get_cache(self):
+    res = ""
+    node = self.cache_vals.head
+    while node:
+      res += "(" + str(node.key) + "," + str(node.val) +  ")"
+      node = node.next
+    return res     

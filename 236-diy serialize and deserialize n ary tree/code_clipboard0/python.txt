@@ -1,0 +1,20 @@
+from collections import deque
+
+class Node:
+  def __init__(self,val, children= []):
+      self.children = children
+      self.val = val
+
+#  Encodes a tree to a single string.
+def serialize(root):
+    
+    # Write your code here
+
+    pass
+
+# Decodes your encoded data to tree.
+def deserialize(data) :
+    
+    # Write your code here
+
+    pass

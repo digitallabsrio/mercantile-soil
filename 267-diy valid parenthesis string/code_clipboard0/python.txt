@@ -1,0 +1,5 @@
+def validate_string(check):
+  
+  # Write your code here
+
+  pass

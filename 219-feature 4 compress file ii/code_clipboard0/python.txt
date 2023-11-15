@@ -1,0 +1,28 @@
+def compress(chars):
+  i = 0
+
+  while i < len(chars):
+    count = 1
+    ch = chars[i]
+    c = i = i + 1
+
+    # Count the number of times a character repeats
+    while i < len(chars) and chars[i] == ch:
+      chars=  chars[0 : i] + chars[i + 1:]
+      count+=1
+
+    if count > 1:
+      for j in str(count):
+        chars.insert(c, j)
+        c = c + 1
+      i = c
+
+  return chars
+
+chars = ['a','a','b','b','b','c','a','a','a','a']
+    
+result = compress(chars)
+
+result = ''.join([str(elem) for elem in result])
+print(result)
+    

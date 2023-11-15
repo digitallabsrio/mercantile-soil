@@ -1,0 +1,44 @@
+from TreeNode import *
+from collections import deque
+
+def zigzagLevelOrder(root):
+    if root is None:
+        return []
+
+    results = []
+    # To iterate the tree in a zigzag order
+    reverse = False
+
+    dq = deque([root])
+    
+    # level order traversal with DFS
+    while(len(dq) != 0):
+        size = len(dq)
+        results.insert(len(results), [])
+        for i in range(size):
+            if not reverse:
+                node = dq.popleft()
+                results[len(results) - 1].append(node.val)
+                if(node.left != None):
+                    dq.append(node.left)
+                if(node.right != None):
+                    dq.append(node.right);
+            else:
+                node = dq.pop();
+                results[len(results) - 1].append(node.val);
+                if node.right:
+                    dq.appendleft(node.right);
+                if node.left:
+                    dq.appendleft(node.left); 
+        reverse = not reverse    
+    return results
+
+
+# Driver Code
+
+root = TreeNode(3)
+root.right = TreeNode(9)
+root.left = TreeNode(6)
+root.right.left = TreeNode(15)
+root.right.right = TreeNode(12)
+print(zigzagLevelOrder(root))

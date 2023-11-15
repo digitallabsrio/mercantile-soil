@@ -1,0 +1,21 @@
+def first_failing_step(n):
+    """
+    :type n: int
+    :rtype: int
+    """
+    first = 1
+    last = n
+    while first < last:
+        mid = first + (last - first) // 2
+        if is_failing_step(mid): # Calling the API to determine if the step fails
+            last = mid
+        else:
+            first = mid + 1
+    return first
+
+
+## Driver code
+n = 40 # Number of steps
+v = 28 # Failing step
+
+print(first_failing_step(40))

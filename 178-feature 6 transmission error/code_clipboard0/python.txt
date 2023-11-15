@@ -1,0 +1,43 @@
+def transmission_error(arr): 
+    
+    def is_palindrome(arr, left, right): 
+        while left < right: 
+            if arr[left] != arr[right]: 
+                return False
+            left += 1
+            right -= 1
+        return True
+    # Initialize left and right at each end
+    left = 0
+    right = len(arr) - 1
+
+    while left < right: 
+  
+        # Clause if elemetns at both ends are same
+        if arr[left] == arr[right]: 
+            left += 1
+            right -= 1
+        # Clause when mismatch occurs
+        else: 
+            # Check if ignoring left gives a palindromic sequnce 
+            if is_palindrome(arr, left + 1, right): 
+                return 1 
+  
+            # Check if ignoring right gives a palindromic sequnce 
+            if is_palindrome(arr, left, right - 1): 
+                return 1 
+            
+            # Multiple routers exist
+            return -1
+  
+    # No diversion router was used 
+    return 0
+
+# Driver code
+
+arr = [1, 2, 3, 3, 4, 2, 1]
+
+if transmission_error(arr) == 1 or transmission_error(arr) == 0:
+    print("Network Sustained. No Transmission Error Occurred!")
+else:
+    print("Network Broke. Transmission Error Occurred!")

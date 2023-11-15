@@ -1,0 +1,38 @@
+import collections
+
+def power_up(dead_states, target):
+    def neighbors(src):
+        res = []
+        for i, ch in enumerate(src):
+            num = int(ch) # convert string to integer
+            
+            # Calculate the new state by moving the current number in 
+            # opposite direction
+            res.append(src[:i] + str((num - 1) % 10) + src[i+1:])
+
+            # Calculate the new state by moving the current number in 
+            # forward direction
+            res.append(src[:i] + str((num + 1) % 10) + src[i+1:])
+        return res
+
+    dead = set(dead_states)
+    queue = collections.deque([('0000', 0)])
+    visited = {'0000'}
+    while queue:
+        node, depth = queue.popleft()
+        if node == target: 
+            return depth
+        if node in dead: 
+            continue
+        for nei in neighbors(node):
+            if nei not in visited:
+                visited.add(nei)
+                queue.append((nei, depth+1))
+    return -1
+
+# Driver code
+
+dead_states = ["0201","0101","0102","1212","2002"] 
+target = "0202"
+
+print("The system will power up in", power_up(dead_states, target), "dial turns")

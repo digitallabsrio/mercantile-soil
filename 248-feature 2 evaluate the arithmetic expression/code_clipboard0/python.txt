@@ -1,0 +1,28 @@
+def evaluate_expression(expression):
+    number = 0
+    sign = 1
+    output = 0
+    stack = []
+    for i in range(len(expression)): 
+        c = expression[i]
+        if c.isdigit(): 
+            number = number * 10 + int(c) # for consecutive digits 98 => 9x10 + 8 = 98
+        elif c in '-+': 
+            output += number * sign
+            sign = -1 if c == '-' else 1
+            number = 0
+        elif c == '(':
+            stack.append(output)
+            stack.append(sign)
+            output = 0
+            sign = 1
+        elif c == ')':
+            output += sign * number
+            output *= stack.pop()
+            output += stack.pop()
+            number = 0
+    return output + number * sign
+
+## Driver code
+expression = "{4 - (10 + 52) + 99}"
+print(evaluate_expression(expression))

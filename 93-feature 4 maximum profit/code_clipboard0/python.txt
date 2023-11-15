@@ -1,0 +1,20 @@
+def max_profit(A):
+  if len(A) < 1:
+    return 0
+
+  curr_max = A[0]
+  global_max = A[0]
+  lengthA = len(A)
+  for val in A[1:]:
+    if curr_max < 0:
+      curr_max = val
+    else:
+      curr_max += val
+
+    if global_max < curr_max:
+      global_max = curr_max
+
+  return global_max
+
+stocks = [-4, 2, -5, 1, 2, 3, 6, -5, 1]
+print("Maximum Profit: " + str(max_profit(stocks)) + '%')

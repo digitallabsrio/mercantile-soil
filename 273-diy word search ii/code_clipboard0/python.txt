@@ -1,0 +1,6 @@
+from Trie import Trie
+
+def find_strings(grid, strings):
+    # write your code here
+            
+    pass

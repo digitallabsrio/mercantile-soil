@@ -1,0 +1,31 @@
+def mutate_dna(str1, str2):
+    if len(str1) != len(str2):
+        return False
+        
+    if str1 == str2:
+        return True
+    
+    # form the graph, we can represent it as a map describing the edges
+    edges = {}
+    for c1, c2 in zip(str1, str2):
+
+        # This clause corresponds to discovering a new edge
+        if c1 not in edges:
+            edges[c1] = c2
+
+        # This clause corresponds to discovering more than one out-degree, 
+        # which we concluded is not possible 
+        elif edges[c1] != c2:
+            return False
+
+    return len(set(str2)) < 26
+
+# Driver code
+
+s1 = "aabcc"
+s2 = "ccdee"
+
+if mutate_dna(s1, s2) == True:
+    print("Mutation Possible")
+else:
+    print("Mutation not Possible")

@@ -1,0 +1,5 @@
+def frog_jump(stones): 
+    
+    # Write your code here
+
+    pass

@@ -1,0 +1,5 @@
+def reconstruct_queue(people):
+
+  # Write your code here
+
+  pass

@@ -1,0 +1,24 @@
+def divide_files(files):
+    # Compute the last occurences of each letter
+    last = {}
+    for i, f in enumerate(files):
+        last[f] = i
+
+    start = end = count = 0
+
+    # Traverse the string
+    for i, f in enumerate(files):
+        # Compute the highest last occurence position
+        end = max(end, last[f])
+
+        # Clause for when we reach the highest last occurence position
+        if i == end:
+            count += 1
+            start = end + 1
+        
+    return count
+
+# Driver code
+
+files = "abacdc"
+print("The files", '"' + files + '"', "will be divided into", divide_files(files), "worker nodes!")

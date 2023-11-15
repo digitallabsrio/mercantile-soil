@@ -1,0 +1,4 @@
+def evaluate(equations, values, queries):
+  #write your code here
+
+  pass

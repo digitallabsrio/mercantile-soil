@@ -1,0 +1,69 @@
+import math
+
+class TicTacToe:
+
+    # TicTacToe class contains rows, cols, diagonal,
+	# and anti_diagonal to create a board.
+    # Constructor is used to create n * n tic - tac - toe board.
+
+    def __init__(self, n): 
+        self.rows = [0] * (n)
+        self.cols = [0] * (n)
+        self.diagonal = 0 
+        self.anti_diagonal = 0 
+
+    # Move function will allow the players to play the game
+    # for given row and col.
+    def move(self, row, col, player):
+
+         # current_player will be used to keep track of players, 
+         # i.e.,1 for player 1 and - 1 for player 2.
+        current_player = -1
+        if player == 1:
+            current_player = 1
+
+        # Update current_player in rows and cols lists.
+        self.rows[row] += current_player
+        self.cols[col] += current_player
+
+        # Update diagonal.
+        if row == col: 
+            self.diagonal += current_player
+
+        # Update anti diagonal
+        if col == (len(self.cols) - row - 1): 
+            self.anti_diagonal += current_player
+
+        n = len(self.rows)
+
+        # Check if the current player wins
+        if abs(self.rows[row]) == n or abs(self.cols[col]) == n or abs(self.diagonal) == n or abs(self.anti_diagonal) == n: 
+            return player
+        
+        return 0
+
+ # Driver code
+input = [
+    [3],
+    [0, 0, 1],
+    [0, 2, 2],
+    [2, 2, 1],
+    [1, 1, 2],
+    [2, 0, 1],
+    [1, 0, 2],
+    [2, 1, 1]
+]
+
+ticTacToe = TicTacToe(input[0][0])
+win = 0
+
+for i in range(1,len(input)): 
+    print("Player " + str(input[i][2]) + " makes a move at (" + str(input[i][0]) + ", " + str(input[i][1]) + ")")
+    
+    win = ticTacToe.move(input[i][0], input[i][1], input[i][2])
+
+    if (win == 0): 
+        print("No one wins")
+    else :
+        print("Player " + str(win) + " wins")
+        break

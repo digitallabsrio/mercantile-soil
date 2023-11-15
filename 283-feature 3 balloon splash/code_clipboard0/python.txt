@@ -1,0 +1,20 @@
+from itertools import repeat
+def remove_duplicates(string, k):
+    stack = []
+
+    for char in string:
+      if stack and stack[-1][0] == char:
+          stack[-1][1] += 1
+          if stack[-1][1] == k:
+                stack.pop()
+      else:
+        stack.append([char, 1])
+
+    result = ""
+    for  elem in stack:
+        char = elem[0]
+        count = elem[1]
+        result = result + (char * count)
+    return result
+
+print(remove_duplicates("sammmaddkkkdasa", 3))

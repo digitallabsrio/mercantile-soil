@@ -1,0 +1,157 @@
+def strong_password_checker(password):
+
+    delete_char = max(0, len(password) - 20) # the number of chars to delete
+    insert_char = max(0, 6 - len(password)) # the number of chars to insert
+    to_delete = 0 
+    to_add = 0
+    to_replace = 0
+    upper_char = 1 
+    lower_char = 1
+    digit_char = 1
+    left = 0
+    right = 0
+
+    # for cases where password.Length <= 20
+    for right,ch in enumerate(password):
+
+        # check if the password has uppercase or lowercase letters or digits
+        if ch.isupper():
+            upper_char = 0
+
+        if ch.islower():
+            lower_char = 0
+
+        if ord(ch) >= 48 and ord(ch) < 58:
+            digit_char = 0
+
+
+        # if there is a substring with 3 chars
+        if right - left == 2:
+            # check if the substring has three repeating chars                
+            if password[left] == password[left + 1] and password[left + 1] == password[right]:
+                # we will insert a char if required
+                if to_add < insert_char:
+                    to_add+=1
+                    left = right
+
+                else:  # otherwise we will replace a char to break the repetition
+                    to_replace+=1 
+                    left = right + 1
+
+            # we will always keep the substring with 3 chars
+            else: 
+                left+=1
+
+        #right += 1
+
+    # for the case where password.Length <= 20, return the number of
+    # replacements to make the password strong
+
+    if len(password) <= 20:
+        return max(insert_char + to_replace, upper_char + lower_char + digit_char)
+
+
+    # for cases where password.Length > 20
+    to_replace = 0 # we will reset the number of replacements needed
+
+
+    # record repetitions with Length % 3 is 0, 1 or 2
+    rep_counts = []
+
+
+    # initialize the List
+    for i in range(1,4):
+        temp = {}
+        rep_counts.append(temp)
+
+
+    left=0
+    right=0
+    # we store all repetion frequencies in the password
+    while right <= len(password):
+        length = 0 
+        if right == len(password) or password[left] != password[right]:
+            length = right - left
+            if length > 2:
+                # we only care about repetions with Length >= 3, and store 
+                # the number of deletions required for this substring
+
+                # increment the value in the Dictionary, specific to the key
+                temp = rep_counts[length % 3]
+
+                if length in temp.keys():
+                    count = temp[length]
+                else:
+                    count = None
+
+                if count == None:
+                    temp[length] = 1
+                else:
+                    temp[length] = count + 1
+
+
+                rep_counts[length % 3] = temp
+
+            left = right
+
+        right+=1
+
+
+    #     We will delete chars to minimize replacements. We will follow the following pattern:
+    #     i) if len % 3 == 0, we will delete one char from repetitions, thereby decreasing replacements by 1
+    #     ii) if len % 3 == 1, we will delete two chars from repetitions, thereby decreasing replacements by 1 
+    #     iii) if len % 3 == 2, we will delete multiple chars from repetitions, thereby decreasing replacements by 1 
+
+    for i in range(0,3):
+        temp = rep_counts[i]
+        for entry in temp: 
+
+            if i < 2:
+                num_letters = i + 1
+
+                # dec is the number of repetitions we will delete from
+                dec = min(temp[entry], (delete_char - to_delete) // num_letters)
+                to_delete += dec * num_letters
+
+                # update the number of repetitions left oin the password
+                count = temp[entry] - dec
+
+                temp[entry] = count
+
+                rep_counts[i] = temp
+
+                # after chars are deleted, it fits in the group where Length % 3 == 2
+                if (entry - num_letters) > 2:
+                    temp3 = rep_counts[2]
+                    k = entry - num_letters
+
+                    if k in temp3.keys():
+                        count3 = temp3[k]
+                    else:
+                        count3 = None
+
+                    if count3 == None:
+                        temp3[k] = dec
+                    else:
+                        temp3[k] =  count3 + dec
+
+                    rep_counts[2] = temp3
+
+            # entry = temp.ElementAt(index);
+            # next we will record number of replacements needed
+            # also, note that if len is the Length of repetition, we need (len / 3) number of replacements
+            to_replace += (temp[entry]) * ((entry) // 3)
+
+    num_rep = (delete_char - to_delete) // 3
+    to_replace -= num_rep
+    to_delete -= num_rep * 3
+
+    return delete_char + max(to_replace, upper_char + lower_char + digit_char) 
+
+# Driver Code
+
+inputs = ["abcdefghijklmnopqrstuvwxyz", "aaaaaaaaaaaaaaaaaaaaa", "aaaa", "aabcc!ccdd.A1","0123456789"]
+for i in range(0,len(inputs)):
+  steps = strong_password_checker(inputs[i])
+  print("Password = "+'"'+ str(inputs[i])+ '"')
+  print("Minimum steps required to make a password strong = " , steps)

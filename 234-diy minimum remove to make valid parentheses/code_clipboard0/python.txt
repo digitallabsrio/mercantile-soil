@@ -1,0 +1,5 @@
+def MinRemoveParentheses(s):
+  
+  # Write your code here
+
+  pass

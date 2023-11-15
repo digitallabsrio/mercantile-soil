@@ -1,0 +1,12 @@
+class NumMatrix : 
+    def __init__(self,matrix):
+      
+      # Initialize your variables here
+
+      return
+        
+    def sum_region(self,row1,col1,row2,col2):
+    
+      # Write your code here
+
+      pass

@@ -1,0 +1,6 @@
+from TreeNode import *
+
+def LCA(root, node1, node2):
+    #write your code here
+    
+    pass

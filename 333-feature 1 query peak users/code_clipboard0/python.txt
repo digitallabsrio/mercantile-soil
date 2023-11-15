@@ -1,0 +1,94 @@
+class PeakUsers : 
+    def __init__(self,users):
+        # Section Start - Brute Force
+        self.users1 = []
+        self.users1 = users 
+        # Section Stop - Brute Force
+        
+        # Section Start - Caching Rows
+        self.cache = []
+        if len(users) == 0  or len(users[0]) == 0:
+            return 
+
+        self.cache = [[0 for j in range(len(users[0])+1)]for i in range(len(users))]
+        for r in range(0,len(users)):
+            for c in range(0,len(users[0])):
+                 self.cache[r][c + 1] =  self.cache[r][c] + users[r][c] 
+        
+        
+        # Section End - Caching Rows
+
+        # Section Start - Caching Smart
+        self.smart_cache = []
+        if  not len(users) or not len(users[0]):
+            return 
+        
+        self.smart_cache = [[0 for j in range(len(users[0])+1)]for i in range(len(users)+1)]
+        for r in range(len(users)):
+            for c in range(len(users[0])):
+                self.smart_cache[r + 1][c + 1] = self.smart_cache[r + 1][c] + self.smart_cache[r][c + 1] + users[r][c] - self.smart_cache[r][c] 
+        
+        
+        # Section End - Caching Smart
+   
+
+    # Brute Force
+    def brute_force(self,row1,col1,row2,col2):
+        sum = 0 
+
+        for r in range(row1,row2+1):
+            for c in range(col1,col2+1):
+                sum +=  self.users1[r][c] 
+        
+        return sum 
+   
+
+    # Caching Rows
+    def cache_rows(self,row1,col1,row2,col2) :
+        sum = 0 
+        
+        for row in range(row1,row2+1):
+            sum += self.cache[row][col2 + 1] - self.cache[row][col1] 
+        
+        return sum 
+   
+
+    # Caching Smarter
+    def cache_smart(self,row1,col1,row2,col2):
+        return self.smart_cache[row2 + 1][col2 + 1] - self.smart_cache[row1][col2 + 1] - self.smart_cache[row2 + 1][col1] + self.smart_cache[row1][col1] 
+   
+
+    
+# Driver code
+users = [[1, 2, 3],[4, 5, 6],[7, 8, 9]]   
+pu = PeakUsers(users) 
+
+# Example - 1
+row1 = 0 
+col1 = 1 
+row2 = 2 
+col2 = 2 
+print("Example - 1:") 
+print("Peak Number of Users (Brute Force): " ,pu.brute_force(row1, col1, row2, col2))
+print("Peak Number of Users (Caching Rows): " ,pu.cache_rows(row1, col1, row2, col2))
+print("Peak Number of Users (Caching Smarter): " ,pu.cache_smart(row1, col1, row2, col2))
+
+# Example - 2
+row1 = 1 
+col1 = 1  
+row2 = 2  
+col2 = 2 
+print("Example - 2:") 
+print("Peak Number of Users (Brute Force): " ,pu.brute_force(row1, col1, row2, col2))
+print("Peak Number of Users (Caching Rows): " ,pu.cache_rows(row1, col1, row2, col2))
+print("Peak Number of Users (Caching Smarter): " ,pu.cache_smart(row1, col1, row2, col2))
+
+# Example - 3
+row1 = 0 
+col1 = 0 
+row2 = 2 
+col2 = 2 
+print("Example - 3:") 
+print("Peak Number of Users (Brute Force): " ,pu.brute_force(row1, col1, row2, col2))
+print("Peak Number of Users (Caching Rows): " ,pu.cache_rows(row1, col1, row2, col2))
+print("Peak Number of Users (Caching Smarter): " ,pu.cache_smart(row1, col1, row2, col2))

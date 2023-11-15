@@ -1,0 +1,39 @@
+def find_duplicate_tweets(tweets_info):
+  # create a hashmap to store the duplicate people names for a hashtag
+  map = {}
+  list = []
+  # iterate over each tweet information
+  for tweet in tweets_info:
+
+    # obtain the days, people names, and hashtags 
+    # separately by splitting based on the space
+    values = tweet.split(" ")
+    for i in range (1, len(values)):
+      # split the person name and the hashtag appropriately to get the hashtag
+      name_cont = values[i].split("(")
+      name_cont[1] = name_cont[1].replace(")", "")
+
+      # check if the hashtag already exists in the hashmap
+      # if it exists, then return its value and add the hashmap path to it,
+      # otherwise create a new list and add the hashmap path to it
+      
+      if name_cont[1] in map: 
+        list = map[name_cont[1]]
+      else:
+        list = []
+      list.append(values[0] + "/" + name_cont[0]);
+      map[name_cont[1]] =  list
+    
+  # check if each hashtag has a list that consists of at least 
+  # two hashtag paths, and add such lists to the output and return it
+  output = []
+  for  key in  map:
+    if len(map[key]) > 1: 
+      output.append(map[key])
+
+  return output
+
+# Driver code
+tweets_info = ["Monday Joe(t20) Jack(chevrolet) Charlie(ev)", "Tuesday Alice(cake) Bob(chevrolet)", "Wednesday Joe(boeing) Jack(ev) Alice(t20)"]
+
+print(find_duplicate_tweets(tweets_info))

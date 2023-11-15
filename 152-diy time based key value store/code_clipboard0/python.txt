@@ -1,0 +1,20 @@
+class TimeMap:
+  def __init__(self):
+
+    # Write your code here
+    
+   pass
+    
+
+  def set(self,key, value, timestamp):
+    
+    # Write your code here
+  
+    pass
+
+
+  def get(self,key, timestamp):
+      
+    # Write your code here
+      
+    pass

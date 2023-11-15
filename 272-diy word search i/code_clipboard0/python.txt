@@ -1,0 +1,4 @@
+def find_string(grid, string):
+    # write your code here
+    
+    pass

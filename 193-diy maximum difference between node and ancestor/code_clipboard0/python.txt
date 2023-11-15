@@ -1,0 +1,6 @@
+from TreeNode import *
+class Tree:
+  def max_ancestor_diff(self, root):
+    # write your code here
+
+    pass

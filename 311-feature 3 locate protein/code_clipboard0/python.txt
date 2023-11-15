@@ -1,0 +1,30 @@
+def locate_protein(s):
+    
+    if not s or len(s) == 0:
+        return ""
+    
+    # returns size of the current/latest palindrome
+    def return_palindrome_length(s, left, right):
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+
+        return right - left - 1
+    
+    start, end = 0, 0
+    
+    for i in range(0, len(s)):
+        len1 = return_palindrome_length(s, i, i) # for odd length
+        len2 = return_palindrome_length(s, i, i + 1) # for even length
+        res_len = max(len1, len2)
+        
+        if res_len > (end - start):
+            start = (i - (res_len - 1)  // 2)
+            end = (i + res_len // 2)
+            
+    return s[start:end+1]
+
+# Driver code
+
+sequence = "aaccbababcbc"
+print(locate_protein(sequence))

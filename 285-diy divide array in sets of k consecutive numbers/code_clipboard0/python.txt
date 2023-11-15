@@ -1,0 +1,4 @@
+def is_division_possible(nums, k):
+    # write your code here
+
+    pass

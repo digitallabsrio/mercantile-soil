@@ -1,0 +1,67 @@
+def calculate_total_amount(data):
+    if not data:
+      return 0
+
+    size = len(data)
+
+    # current_data is used to keep track of current number.
+    # last_data will keep a track of last number used/evaluated.
+    # total will be used to store the final result of the evaluated expression.
+    current_data, last_data, total = 0,0,0
+
+    #symbol is used to keep a track of operators present in a string and 
+    # perform the evaluation. 
+    symbol = '+'
+
+    # current_char allows us to iterate in a string.
+    for i in range (size):
+      current_char = data[i]
+
+      #First we'll check if the current_char is a digit, if true 
+      # the character will be converted to an integer added to the
+      # current_data and then stored in current_data. 
+
+      if current_char.isdigit():
+        # print(type(current_char))
+        # print(current_char * 10)
+        current_data = (current_data * 10) + (ord(current_char) - ord('0'))
+
+      #If current_char is not a digit or space, we'll start 
+      # evaluating the given expression.  
+      if not current_char.isdigit() and not current_char.isspace() or i == size - 1:
+        
+        #If the symbol is equal to '+', the last_data will be added to the total
+        # and current_data will be saved in the last_data. 
+        if symbol == '+':
+          total += last_data
+          last_data = current_data
+
+        #Same goes for '-' operation, the last_data gets added to the total
+        # and -current_data get saved in the last_data. 
+        elif symbol == '-':
+          total += last_data
+          last_data = -current_data
+        
+        #If the symbol is  equal to '*', last_data gets multiplied with current_data
+        # and the result get saved in the last_data. 
+        elif symbol == '*':
+          last_data = last_data * current_data
+        
+        #If the symbol is  equal to '/', last_data gets divided with current_data
+        # and the result get saved in the last_data. 
+        elif symbol == '/':
+          #print("divide",int(last_data/current_data))
+          last_data = int(last_data / current_data)
+        
+        symbol = current_char
+        current_data = 0
+    
+    # After all of the calculations lastdata is added to the total.
+    total += last_data
+    return total
+
+#Driver code
+
+cart_data = "2+3/7-1"
+total_amount = calculate_total_amount(cart_data)
+print("Total amount of the cart is: ", total_amount)

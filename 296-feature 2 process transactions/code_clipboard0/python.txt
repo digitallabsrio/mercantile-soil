@@ -1,0 +1,67 @@
+max_value = 2147483647
+min_value = -2147483648
+def process_transactions(s):
+  length = len(s)
+  is_space = False
+
+  # sanity check if the length of the string is 0, simply return 0
+  if length == 0 or s == None:
+    return 0
+
+  index = 0
+
+  # 1. check for white spaces
+  # Only the space character ' ' is considered a whitespace character.
+  while index < length and s[index] == ' ':
+    index+=1
+    is_space = True
+
+  if index == length and is_space:
+    return 0
+  # 2. check sign
+  is_negative = 0
+  
+  if s[index] == '-':
+    is_negative = 1
+    index +=1
+  elif s[index] == '+':
+    index+=1
+
+  # 3. read until next non-digit character found
+  result = 0
+
+  for i in range (index,length):
+    # check if the current character is a non-digit character is not
+    if s[i] >= '0' and s[i] <= '9':
+
+      # ord(s[i]) - ord('0') is to convert the char digit into int digit 
+      # eg: '9' - '0' --> 9
+      # or else we will be storing the ASCII value of 9 i.e. 57,
+      # so we do 57(ASCII of 9) - 48(ASCII of 0(zero)) to get 9 as int
+      # ord(s[i]) - ord('0') is to convert the char digit into int digit 
+
+      char_to_digit_val = ord(s[i]) - ord('0')
+
+      # 4. check range (integer underflow and overflow)
+      if result > (max_value // 10) or (result == (max_value // 10) and char_to_digit_val > 7):
+        if is_negative == 0:
+          return max_value
+        else:
+          return min_value
+
+      # adding digits at their desired place-value
+      result = (result * 10) + char_to_digit_val
+      index+=1
+    else:
+      break
+
+  if is_negative:
+    return  result * -1 
+  else:
+    return result
+
+  # Driver code
+s =["42", "    -123", "-42", "42 with words", "word 42","1","  "]
+for i in s:
+  val = process_transactions(i)
+  print(val)

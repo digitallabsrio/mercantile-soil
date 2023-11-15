@@ -1,0 +1,40 @@
+def maximum_routers(grid):
+    def dfs(i, j):
+        if not cache[i][j]:
+            val = grid[i][j]
+
+            cache[i][j] = 1 + max(
+                # Up
+                dfs(i - 1, j) if i and val < grid[i - 1][j] else 0,
+                
+                # Down
+                dfs(i + 1, j) if i < m - 1 and val < grid[i + 1][j] else 0,
+                
+                # Left
+                dfs(i, j - 1) if j and val < grid[i][j - 1] else 0,
+                
+                # Right
+                dfs(i, j + 1) if j < n - 1 and val < grid[i][j + 1] else 0)
+        
+        return cache[i][j]
+
+    if not grid or not grid[0]: 
+        return 0
+        
+    m, n = len(grid), len(grid[0])
+    cache = [[0] * n for i in range(m)]
+    res = 0
+    for x in range(m):
+        for y in range(n):
+            res = max(res, dfs(x, y))
+    return res
+
+# Driver code
+
+grid = [
+    [2,9,6],
+    [8,4,7],
+    [5,3,1]
+]
+
+print("Maximum Routers are" ,maximum_routers(grid))

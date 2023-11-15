@@ -1,0 +1,4 @@
+def maximize_sweetness(sweetness, K):
+    # write your code here
+    
+    pass

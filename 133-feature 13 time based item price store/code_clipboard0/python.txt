@@ -1,0 +1,139 @@
+from bisect import bisect_right
+class TimeMap:
+  def __init__(self):
+    self.prices = {}
+    self.timestamps = {}
+  
+  # Set TimeMap data variables
+  def set(self,item, price, timestamp):
+
+    # Check if the given item already exists in the data structure
+    if item in self.prices:
+      # Check if the given timestamp is in increasing order
+      if timestamp < self.timestamps[item][len(self.timestamps[item]) - 1]:
+        print("Timestamp is expected to have values ranging from " , self.timestamps[item][len(self.timestamps[item]) - 1] , " to 10000000 only.")
+      # Check if the given price of an item already exists in the data structure
+      elif price != self.prices[item][len(self.prices[item])-1]:
+        # Store self.prices for the given item in the data structure
+        self.prices[item].append(price)
+        # Store timestamp for the given item in the data structure
+        self.timestamps[item].append(timestamp)
+      
+    else:
+      # Store Prices and Item for the given Item in the data structure
+      self.prices[item]=[price]
+      # Store Timestamp for the given Item in the data structure
+      self.timestamps[item]= [timestamp]
+    
+
+#   def criteria(self,index, item, timestamp):
+#     return self.timestamps[item][index] > timestamp
+  
+  def search(self, n, item, timestamp):
+    i = 0
+    j = n
+    h = 0
+  
+    while i < j:
+      h = (i+j) >> 1 # avoid overflow when computing h
+      # i ≤ h < j
+    #   if not self.criteria(h, item, timestamp):
+      if not self.timestamps[item][h] > timestamp:
+        i = h + 1 # preserves f(i-1) == false
+      else:
+        j = h # preserves f(j) == true
+  
+    return i
+      
+  
+  # Get TimeMap data variables
+  def get(self,item, timestamp):
+    # Check if the given item is present in the data structure
+    if item not in self.prices:
+      return "" # return empty string if item does not exist
+    else:
+      
+      # Find the right most occurrence of the given timestamp
+      index = self.search(len(self.timestamps[item]), item, timestamp) - 1
+      # If the timestamp exist in a data structure return the price with that
+      # timestamp.
+      if index > -1:
+        return self.prices[item][index]
+      
+      # return empty string if the timestamp does not exist
+      return ""
+
+# Driver Code
+#Example #1
+print("Example #1")
+print("")
+
+map = TimeMap()
+# Set price
+print("SAVE: Item = Sun Glasses Price = $20 TimeStamp = 3")
+print("")
+# Set
+map.set("Sun Glasses", "$20", 3)
+# Get
+print("GET: Item = Sun Glasses TimeStamp = 3")
+output = map.get("Sun Glasses", 3)
+print("GOT: The price of Sun Glasses is: " , output)
+print("")
+
+# Get
+print("GET: Item = Sun Glasses TimeStamp = 1")
+output = map.get("Sun Glasses", 1)
+print("GOT: The price of Sun Glasses is: " , output)
+print("")
+
+print("SAVE: Item = Sun Glasses Price = $15, TimeStamp = 4")
+print("")
+
+# Set
+map.set("Sun Glasses", "$15", 4)
+print("")
+
+# Get
+print("GET: Item = Sun Glasses TimeStamp = 8" )
+output = map.get("Sun Glasses", 8)
+print("GOT: The price of Sun Glasses is: " , output)
+print("")
+
+# Get
+print("GET: Item = Sun Glasses TimeStamp = 4" )
+output = map.get("Sun Glasses", 4)
+print("GOT: The price of Sun Glasses is: " ,output )
+print("")
+
+# Example #2
+print("Example #2" )
+print("")
+
+map1 =  TimeMap()
+print("SAVE: Item = Watch Price = $30 TimeStamp = 5" )
+map1.set("Watch","$30",5)
+print("")
+
+print("GET: Item = Watch TimeStamp = 1" )
+output = map1.get("Watch",1)
+print("GOT: The price of Watch is: " , output )
+print("")
+
+print("GET: Item = Watch TimeStamp = 5" )
+output = map1.get("Watch", 5)
+print("GOT: The price of Watch is: " , output )
+print("")
+
+# Set
+print("SAVE: Item = Watch Price = $25  TimeStamp = 2" )
+map1.set("Watch","$25",2)
+print("")
+
+print("GET: Item = Watch TimeStamp = 5" )
+output = map1.get("Watch", 5)
+print("GOT: The price of Watch is: " , output )
+print("")
+
+print("GET: Item = Watch TimeStamp = 3" )
+output = map1.get("Watch", 3)
+print("GOT: The price of Watch is: " , output )

@@ -1,0 +1,4 @@
+def find_kth_largest(arr, k):
+  # write your code here
+
+  pass

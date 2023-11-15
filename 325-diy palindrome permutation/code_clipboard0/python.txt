@@ -1,0 +1,5 @@
+def permute_palindrome(string):
+  
+  # Write your code here
+  
+  pass

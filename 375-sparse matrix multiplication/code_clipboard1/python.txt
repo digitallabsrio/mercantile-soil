@@ -1,0 +1,27 @@
+def multiply(A, B):
+    map_a = {}
+    map_b = {}
+    C = [[0 for i in range(len(B[0]))] for i in range(len(A))]
+
+    for r, row in enumerate(A):
+        for c, value in enumerate(row):
+            if(value):
+                map_a[(r, c)] = value
+    for r, row in enumerate(B):
+        for c, value in enumerate(row):
+            if(value):
+                map_b[(r, c)] = value
+    
+    for (key_a, key_b), value in map_a.items():
+        for j in range(len(B[0])):
+            if((key_b, j) in map_b):
+                val = map_b[(key_b, j)]
+                C[key_a][j] += value * val
+    return C
+A = [[1, 0, 0], [0, 1, 3]]
+B = [[5, 0, 0], [0, 0, 0], [3, 0, 2]]
+print(multiply(A, B))
+
+D = [[1, -5]]
+E = [[12], [-1]]
+print(multiply(D, E))

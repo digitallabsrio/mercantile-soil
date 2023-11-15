@@ -1,0 +1,44 @@
+from collections import defaultdict
+
+def detect_virus(s, k):
+
+    if k == 0 or len(s) == 0:
+        return 0
+
+    # left and right pointers
+    left, right = 0, 0
+    # dummy variables
+    start, end = 0, 0
+
+
+    character_map = defaultdict() # character -> its rightmost position
+
+    max_len = 1
+
+    while right < len(s):
+
+        # add new character and move right pointer
+        character_map[s[right]] = right
+        right += 1
+
+        # This clause checks if window contains more than k characters
+        if len(character_map) == k + 1:
+
+            min_idx = min(character_map.values())
+            del character_map[s[min_idx]]
+
+            # move left pointer of the window
+            left = min_idx + 1
+
+        if (end - start) < (right - left):
+            start = left
+            end = right
+
+    return s[start:end]
+
+#Driver code
+
+infected_dna = "ababffzzeee"
+k = 3 # supplied from a hidden program
+
+print(detect_virus(infected_dna, k))

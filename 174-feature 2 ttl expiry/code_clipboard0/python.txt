@@ -1,0 +1,52 @@
+import collections
+
+class TreeNode:
+  def __init__(self, val):
+    self.val = val
+    self.children = []
+
+def get_devices(root, server, ttl):
+
+    # DFS to build adjacency list
+    def dfs(parent, child, neighbors):
+        if not child:
+            return
+        if parent:
+            neighbors[parent.val].append(child.val)
+            neighbors[child.val].append(parent.val)
+        
+        for i in range(0, len(child.children)):
+            dfs(child, child.children[i], neighbors)
+    
+    neighbors = collections.defaultdict(list) # Adjacency list
+    dfs(None, root, neighbors)
+
+    # BFS to find nodes
+    bfs = [server.val]
+    lookup = set(bfs)
+    for _ in range(ttl):
+        bfs = [nei for node in bfs
+                for nei in neighbors[node]
+                if nei not in lookup]
+
+        lookup |= set(bfs)
+    return bfs
+
+# Driver code
+root = TreeNode(1)
+root.children.append(TreeNode(2))
+root.children.append(TreeNode(3))
+root.children.append(TreeNode(4)) 
+root.children[0].children.append(TreeNode(5)) 
+root.children[0].children[0].children.append(TreeNode(10)) 
+root.children[0].children.append(TreeNode(6)) 
+root.children[0].children[1].children.append(TreeNode(11))
+root.children[0].children[1].children.append(TreeNode(12))
+root.children[0].children[1].children.append(TreeNode(13)) 
+root.children[2].children.append(TreeNode(7))
+root.children[2].children.append(TreeNode(8))
+root.children[2].children.append(TreeNode(9))
+
+server = root.children[0].children[1]
+ttl = 2
+print("The TTL value will expire on node IDs:", get_devices(root, server, ttl))

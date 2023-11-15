@@ -1,0 +1,45 @@
+from collections import deque
+open_space = 2147483647
+drop_point = 0
+directions = [ [0, 1], [0, -1], [-1, 0], [1, 0] ]    
+
+def ware_house_and_drop_points(ware_house):
+    # First of all check if the given ware_house is empty or not
+    # If empty return 
+    m = len(ware_house)
+    if m == 0:
+        return
+
+    # Save the ware_house row and col lengths in m and n
+    n = len(ware_house[0])
+
+    # Intialize a queue to implement a Bread-First search approach
+    queue = deque()
+
+    # Filling the queue with drop points row, col indexes of a ware_house
+    for row in range(m):
+        for col in range (n):
+            if ware_house[row][col] == drop_point:
+                queue.append((row,col))
+
+    # Filling the open spaces with the distances to its nearest drop point 
+    # using the queue and BFS approach
+    while queue:
+        point = queue.popleft()
+        row = point[0]
+        col = point[1]
+
+        for direction in directions:
+            r = row + direction[0]
+            c = col + direction[1]
+            if r < 0 or c < 0 or r >= m or c >= n or ware_house[r][c] != open_space:
+                continue
+
+            ware_house[r][c] = ware_house[row][col] + 1
+            queue.append((r, c ))
+
+    
+ware_house =[[2147483647,-1,0,2147483647],[2147483647,2147483647,2147483647,-1],[2147483647,-1,2147483647,-1],[0,-1,2147483647,2147483647]]
+print("Given Warehouse: " ,ware_house)
+ware_house_and_drop_points(ware_house)
+print("Filled Warehouse: " , ware_house)

@@ -1,0 +1,4 @@
+def least_time(tasks , T):
+  # Write your code here
+
+  pass

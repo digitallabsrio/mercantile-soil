@@ -1,0 +1,5 @@
+def count_palindromic_substring(s):
+
+  # Write your code here
+  
+  pass

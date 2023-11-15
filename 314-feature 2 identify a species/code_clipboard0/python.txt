@@ -1,0 +1,52 @@
+def find_species_marker(nucleotide):
+    # Check if a DNA sequence has no nucleotide
+    if len(nucleotide) == 0:
+        return "DNA sequence must have atleast one nucleotide."
+
+    n = len(nucleotide)
+    st_curr, longest, curr_len, start, i = 0,0,0,0,0
+
+    window = {}
+
+    # Traverse the DNA sequence to find the longest substring 
+    # without repeating characters. 
+    for index,val in enumerate(nucleotide):
+      # If the current nucleotide is not present in the hash table,
+      # then store it in the hash table with the value as the current index.
+      if val not in window:
+        window[val] = index 
+      else:
+
+        # If the current nucleotide is present in the hash table, 
+        # it means that this nucleotide can be repeated. 
+        # Check if the current nucleotide occurs before or after `st_curr`. 
+        if window[val] >= st_curr:
+          curr_len = index - st_curr
+          if longest < curr_len:
+            longest = curr_len
+            start = st_curr 
+
+          # The next substring will start after the last 
+          # occurence of the current nucleotide. 
+          st_curr = window[val] + 1
+
+        # Update the last occurence of 
+        # the nucleotide in the hash table
+        window[val] = index
+
+    # print(start)
+    # print(longest)
+    index += 1
+    # Update the longest substring's 
+    # length and starting index.
+    if longest < index - st_curr :
+      longest = index - st_curr
+      start = st_curr
+
+    return nucleotide[start: start + longest]
+
+  #Driver code
+nucleotide = "abcdbea"
+str = find_species_marker(nucleotide)
+print("Specie marker: " , str)
+print("Length of specie marker: " ,len(str))

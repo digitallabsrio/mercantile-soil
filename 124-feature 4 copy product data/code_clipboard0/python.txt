@@ -1,0 +1,51 @@
+def copy_product_relations(head):
+    
+    if not head:
+        return head
+
+    visited = {}
+    def get_cloned_node(node):
+        if node:        
+            if node in visited:
+                # If its in the visited dictionary then return the new node reference from the dictionary
+                return visited[node]
+            else:
+                # Otherwise create a new node, save the reference in the visited dictionary and return it.
+                visited[node] = Node(node.prod, None, None)
+                return visited[node]
+        return None
+
+    old_node = head
+         
+    new_node = Node(old_node.prod, None, None)
+    visited[old_node] = new_node
+
+    # Iterate on the linked list until all nodes are cloned.
+    while old_node != None:
+
+        # Get the clones of the nodes referenced by related and next pointers.
+        new_node.related = get_cloned_node(old_node.related)
+        new_node.next = get_cloned_node(old_node.next)
+
+        old_node = old_node.next
+        new_node = new_node.next
+
+    return visited[head]
+
+# Driver code
+
+products = create_list([3, 1, 5, 4], [2, 0, None, 1])
+# The create_list(values, pointer) is a utility function with parameters as: 
+# 1. values: an array of values to be stored in linked list, i.e., product IDs.
+# 2. pointer: an array containing indices of values that the "related" pointer
+# of the corresponding product will point to. 
+# This function creates the list and returns the head. 
+
+print("Original list:")
+print(list_to_string(products))
+# The list_to_string(head) function is also a utility function that returns 
+# string representation of the list
+
+copied_list = copy_product_relations(products)
+print("Deep copy of list:")
+print(list_to_string(copied_list))

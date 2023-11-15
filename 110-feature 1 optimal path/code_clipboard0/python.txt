@@ -1,0 +1,23 @@
+def optimal_path(grid):
+    i = len(grid) - 1 
+    j = len(grid[0]) - 1 
+
+    for k in range(0,i+1):
+      for l in range(0,j+1):
+
+        if k > 0 and l > 0:
+          grid[k][l] = min(grid[k][l] + grid[k][l - 1], grid[k - 1][l] + grid[k][l]) 
+        elif k > 0 or l > 0:
+          if(l > 0):
+            grid[k][l] += grid[k][l - 1] 
+          else:
+            grid[k][l] += grid[k - 1][l] 
+
+    return grid[i][j] 
+
+  
+# Driver code
+grid =[[5,1,9,11],[11,4,8,10],[13,3,6,7],[5,14,12,4]]
+
+print(optimal_path(grid)) 
+  

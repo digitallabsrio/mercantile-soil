@@ -1,0 +1,4 @@
+def is_monotonic(arr):
+  # write your code here
+
+  pass

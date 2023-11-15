@@ -1,0 +1,26 @@
+def intersection(products_ids1, products_ids2):
+    counter = [0 for i in range (1002)]
+
+    for i in products_ids1:
+        if counter[i] == 0:
+            counter[i] = 1
+
+
+    for i in products_ids2:
+        if counter[i] == 1:
+            counter[i] = 2
+
+    similar_purchases = []
+
+    for i,val in enumerate(counter):
+        if val > 1:
+            similar_purchases.append(i)
+    
+    return similar_purchases
+
+
+# Driver code
+products_ids1 = [10,100,200,300,505,606,20,100,1,5]
+products_ids2 = [200,100,300,600,100,10,1,1,505,505,606,606]
+
+print(intersection(products_ids1, products_ids2))

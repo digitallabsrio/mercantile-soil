@@ -1,0 +1,18 @@
+def validate_data(array):
+    n = len(array)
+    if n == 0 or n == 1: # Return true if array has one or no element
+        return True 
+
+    for i in range(1,n): # Find the unsorted pair
+        if array[i - 1] > array[i]:
+            return False 
+    return True  # No unsorted pair found
+
+
+# Driver code
+array =[ "Caryl", "Elia", "Elvira", "Jeanette", "Lala", "Latasha", "Lyn" ]
+
+if validate_data(array):
+    print("Valid Data") 
+else:
+    print("Invalid Data") 

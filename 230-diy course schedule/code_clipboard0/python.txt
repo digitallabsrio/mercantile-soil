@@ -1,0 +1,5 @@
+def can_finish(num_courses, prerequisites):
+    
+    # write your code here    
+    
+    pass

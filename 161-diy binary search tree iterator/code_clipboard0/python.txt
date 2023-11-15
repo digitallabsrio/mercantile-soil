@@ -1,0 +1,13 @@
+from BinarySearchTree import BinarySearchTree
+
+class BSTIterator:
+
+    def __init__(self, root):
+        pass
+
+
+    def has_next(self):
+        pass
+
+    def next(self):
+        pass

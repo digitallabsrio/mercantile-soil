@@ -1,0 +1,15 @@
+def is_protein(sequence) :
+  # Base Case
+  if len(sequence) <= 1 : # Strings that have length 1 or 0 are palindrome
+      return True
+
+  # Recursive Case
+  length = len(sequence)
+  if sequence[0] == sequence[length - 1] : # compare the first and last elements
+      return is_protein(sequence[1: length - 1])
+
+  return False
+
+# Driver Code
+protein = "acbca"
+print("Is", protein, "a Protein?", is_protein(protein))

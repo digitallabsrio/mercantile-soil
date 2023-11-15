@@ -1,0 +1,5 @@
+def verify_alien_dictionary(words, order):
+  
+  # Write your code here
+
+  pass

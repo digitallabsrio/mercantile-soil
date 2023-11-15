@@ -1,0 +1,4 @@
+def subarray_sum(arr, k):
+  #write your code here
+  
+  pass

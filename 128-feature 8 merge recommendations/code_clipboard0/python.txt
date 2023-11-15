@@ -1,0 +1,34 @@
+def accountsMerge(accounts):
+    email_to_name = {}
+    graph = collections.defaultdict(set)
+
+    for acc in accounts:
+        name = acc[0]
+        for email in acc[1:]:
+            graph[acc[1]].add(email)
+            graph[email].add(acc[1])
+            email_to_name[email] = name
+
+    seen = set()
+    ans = []
+    for email in graph:
+        if email not in seen:
+            seen.add(email)
+            stack = [email]
+            component = []
+            while stack:
+                node = stack.pop()
+                component.append(node)
+                for nei in graph[node]:
+                    if nei not in seen:
+                        seen.add(nei)
+                        stack.append(nei)
+            ans.append([email_to_name[email]] + sorted(component))
+    return ans
+
+# Driver code
+accounts = [["Sarah", "sarah22@email.com", "sarah@gmail.com", "sarahhoward@email.com"],
+            ["Alice", "alicexoxo@email.com", "alicia@email.com", "alicelee@gmail.com"],
+            ["Sarah", "sarah@gmail.com", "sarah10101@gmail.com"],
+            ["Sarah", "sarah10101@gmail.com", "misshoward@gmail.com"]]
+print(accountsMerge(accounts))

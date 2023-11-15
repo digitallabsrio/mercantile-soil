@@ -1,0 +1,37 @@
+def validate_brackets(string):
+      
+    stack = []
+    matches = {
+        "}": "{",
+        "]": "[",
+        ")": "(",
+    }
+
+    extra_char = {
+        "}": "}",
+        "]": "]",
+        ")": ")",
+        "{": "{",
+        "[": "[",
+        "(": "("
+    }
+    
+    for c in string:
+        # If the current character is a closing bracket.
+        if c not in extra_char:
+            continue
+        elif c in matches:
+            # Get the top element of the stack. If the stack is empty, set a dummy value of '#'
+            #top_element = stack.length == 0 ? '#' : stack.pop();
+            top_element = stack.pop() if stack else 0 
+            # If the mapping for this bracket doesn't match the stack's top element, return false.
+            if top_element != matches[c]:
+                return False     
+        else:
+            # If it was an opening bracket, push to the stack.
+            stack.append(c)
+            
+    return len(stack) == 0 
+
+string = "let output = function () { console.log('Anonymous function'); };"
+print(validate_brackets(string))

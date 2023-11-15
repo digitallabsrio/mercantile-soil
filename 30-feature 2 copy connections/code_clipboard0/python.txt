@@ -1,0 +1,27 @@
+from CloneGraph import *
+
+def clone_rec(root, nodes_completed):
+  if root == None:
+    return None
+
+  new_node = Node(root.data)
+  nodes_completed[root] = new_node
+
+  for p in root.friends:
+    x = nodes_completed.get(p)
+    if x == None:
+      new_node.friends += [clone_rec(p, nodes_completed)]
+    else:
+      new_node.friends += [x]
+  return new_node
+
+def clone(root):
+  nodes_completed = {}
+  return clone_rec(root, nodes_completed)
+
+vertices = create_test_graph_directed(7, 18)
+print_graph(vertices[0])
+cp = clone(vertices[0])
+
+print("\nAfter copy.")
+print_graph(cp)

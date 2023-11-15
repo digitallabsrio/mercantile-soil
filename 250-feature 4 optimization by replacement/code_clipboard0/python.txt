@@ -1,0 +1,15 @@
+def optimize_line(line, indices, sources, targets):
+    for i, s, t in sorted(zip(indices, sources, targets), reverse=True):
+        if line[i:i + len(s)] == s:
+            line = line[:i] + t + line[i + len(s):] 
+
+    return line
+
+# Driver code
+
+line = "foo(input, i);"
+indices = [0, 11]
+sources = ["foo", "i"]
+target = ["foobar", "j+1"]
+
+print(optimize_line(line, indices, sources, target))

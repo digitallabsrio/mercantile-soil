@@ -1,0 +1,5 @@
+def single_non_duplicate(nums): 
+
+  # Write your code here
+
+  pass

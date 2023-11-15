@@ -1,0 +1,57 @@
+class NestedIntegers:
+  # Constructor initializes an integer if a value has been passed
+  # else initializes an empty list
+  def __init__(self, opt_parm = None):
+    if opt_parm != None:
+      self.integer = opt_parm 
+    else:
+      self.n_list = []
+      self.integer =  None 
+
+  # return true if this NestedIntegers holds a single integer, rather than a nested list.
+  def is_integer(self):
+    if self.integer != None:
+      return True
+    return False
+
+  # return the single integer that this NestedIntegers holds, if it holds a single integer
+  # Return null if this NestedIntegers holds a nested list
+  def get_integer(self):
+    return self.integer
+
+  #  Set this NestedIntegers to hold a single integer.
+  def set_integer(self,value):
+    self.n_list = None
+    self.integer =  value
+
+  # Set this NestedIntegers to hold a nested list and adds a nested integer to it.
+  def add(self,ni):
+    if self.integer != None:
+      self.n_list = [] # Can cause error
+      self.n_list.append(NestedIntegers(self.integer)) 
+      self.integer = None
+    self.n_list.append(ni) 
+
+    # return the nested list that this NestedIntegers holds, if it holds a nested list
+    # Return null if this NestedIntegers holds a single integer
+  def get_list(self):
+    return self.n_list 
+    
+
+class NestedIterator:
+  def __init__(self, nested_list):
+    
+    # Write code here
+    return
+
+  def has_next(self):
+    
+    # Write code here
+
+    pass
+
+  def next(self): 
+    
+    # Write code here
+
+    pass

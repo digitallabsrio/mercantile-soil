@@ -1,0 +1,47 @@
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def idle_time(list1, list2):
+    dummy = ListNode(0)
+    p = list1 
+    q = list2
+    curr = dummy
+    carry = 0
+
+    while p or q :
+        x = p. val if p else 0
+        y = q.val if q else 0
+        sum = carry + x + y
+        carry = sum // 10
+        curr.next = ListNode(sum % 10)
+        curr = curr.next
+        p = p.next if p else p
+        q = q.next if q else q
+
+    if carry > 0:
+        curr.next = ListNode(carry)
+    return dummy.next
+
+def display(res):
+    curr = res
+    while curr:
+        if curr.next!= None:
+            print(curr.val, end =" ")
+        else:
+            print(curr.val)
+        if curr.next != None:
+            print( "->", end =" ")
+        curr = curr.next
+    
+# driver code
+list1 = ListNode(9)
+list1.next = ListNode(9)
+list1.next.next = ListNode(9)
+
+list2 = ListNode(9)
+list2.next = ListNode(9)
+list2.next.next = ListNode(9)
+dummy = idle_time(list1, list2)
+display(dummy)

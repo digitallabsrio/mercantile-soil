@@ -1,0 +1,115 @@
+from heapq import heappop, heappush, heapify
+
+def median_bufering_events(nums, k):
+    # Will store the medians
+    medians = []
+
+    # Hash-map will keep track of invalid numbers
+    hash_map = {}
+
+    #max heap
+    small_list = []
+    heapify(small_list)
+
+    #min heap
+    large_list = []
+    heapify(large_list)
+
+    # Index of current incoming element being processed
+    i = 0
+
+    # Initialize the small_list heap
+    # Muliplying each elemnt by -1 to implement max heap.
+    for i in range(0,k):
+        heappush(small_list, -1 * nums[i])
+
+    i+=1 
+    # Initialize the large_list heap 
+    for j in range(0,k//2):
+        element = heappop(small_list)
+        heappush(large_list, -1 * element)
+
+    # Start an infinite loop
+    while True:
+        if (k&1) == 1:
+            medians.append(float(small_list[0] * -1))
+            
+        else:
+            temp = (float(small_list[0]* -1) + float(large_list[0])) * 0.5
+            medians.append(temp)
+            
+        # Break the loop if all of the elements are processed
+        if i >= len(nums):
+            break
+      
+        # Outgoing element
+        out_num = nums[i - k]
+
+        # Incoming element
+        in_num = nums[i]
+        i+=1
+        
+        # Balance factor
+        balance = 0
+
+        # Number `out_num` exits window
+        if out_num <= (small_list[0] * -1):
+          balance -= 1
+        else:
+          balance += 1
+
+        # If the outgoing element is not present in the hash-map 
+        # store the `out_num` in the hash-map with value 1,
+        # otherwise increment the count of `out_num` in the hash-map.
+
+        if out_num in hash_map:
+          hash_map[out_num] = hash_map[out_num] + 1
+        else:
+          hash_map[out_num] = 1
+
+        # number `in_num` enters window
+        if small_list and in_num <= (small_list[0] * -1):
+          balance+=1
+          heappush(small_list, in_num * -1)
+        else:
+          balance-=1
+          heappush(large_list, in_num)
+  
+        # Re-balance small_list
+        if balance < 0:
+          heappush(small_list, (-1 * large_list[0]))
+          heappop(large_list)
+          balance +=1
+
+        # Re-balance large_list
+        if balance > 0:
+          heappush(large_list, (-1 * small_list[0]))
+          heappop(small_list)
+          balance +=1
+
+        # Remove invalid numbers that should be discarded from small_list heap tops
+        while (small_list[0] * -1) in hash_map and (hash_map[(small_list[0] * -1)] > 0):
+            hash_map[small_list[0] * -1] = hash_map[small_list[0] * -1 ] - 1
+            heappop(small_list)
+
+        # Remove invalid numbers that should be discarded from large_list heap tops
+        while large_list and large_list[0]  in hash_map and (hash_map[large_list[0]] > 0):
+            hash_map[large_list[0]] = hash_map[large_list[0]] - 1
+            heappop(large_list)
+      
+    # Return medians
+    return medians
+
+print("Example - 1")
+arr = [1,3,-1,-3,5,3,6,7]
+k = 3
+print("Input: array =", arr,  ", k = " , k)
+output = median_bufering_events(arr, k)
+print("Output: Medians =" ,output)
+
+print("Example - 2")
+arr2 = [1,2]
+k = 1
+print("Input: array =" ,arr2 , ", k = " , k)
+output2 = median_bufering_events(arr2, k)
+print("Output: Medians =", output2)

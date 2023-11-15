@@ -1,0 +1,38 @@
+from collections import deque
+def mini_variation_length(nums, threshold):
+    min_deque, max_deque = deque(), deque()
+    start = end = 0
+    ans = 0
+    while end < len(nums):
+
+        # All elements greater than current index element gets removed from min_deque
+        while min_deque and nums[end] <= nums[min_deque[-1]]:
+            min_deque.pop() # pop from end
+
+        # All elements smaller than current index element gets removed from min_deque
+        while max_deque and nums[end] >= nums[max_deque[-1]]:
+            max_deque.pop() # pop from end
+        
+        # append at end of both deques
+        min_deque.append(end)
+        max_deque.append(end)
+        
+        variation = nums[max_deque[0]] - nums[min_deque[0]]
+        if variation > threshold:
+            start += 1
+            # A new sub-list is starting so elements from previous one should
+            # be removed from both the deques
+            if start > min_deque[0]:
+                min_deque.popleft() # pop from front
+            if start > max_deque[0]:
+                max_deque.popleft() # pop from front
+        
+        ans = max(ans, end - start + 1)
+        end += 1
+                
+    return ans
+
+# Driver code
+traffic_rates = [10,1,2,4,7,2]
+threshold_mini_val = 5
+print("The traffic of this customer changes by less than or equal to", threshold_mini_val, "Gbps in a", mini_variation_length(traffic_rates, threshold_mini_val), "day window")

@@ -1,0 +1,4 @@
+def length_of_longest_substring_k_distinct(s, k):
+  # write your code here
+  
+  pass

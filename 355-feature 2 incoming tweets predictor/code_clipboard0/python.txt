@@ -1,0 +1,25 @@
+from collections import deque
+class tweets_predictor:
+     def __init__(self, size):
+        self.size = size
+        self.queue = deque()
+        self.len_queue = 0
+        self.window_sum = 0 
+
+     def predict_tweets(self,val):
+          if self.len_queue == self.size:
+               pop_val =  self.queue.popleft()
+          else:
+               self.len_queue = self.len_queue + 1
+               pop_val = 0
+          self.queue.append(val)
+          self.window_sum = self.window_sum + val - pop_val
+          return (self.window_sum/self.len_queue)
+
+# Driver Code
+values = [1,10,3,5]
+count_tweets = tweets_predictor(3)
+
+for i in values:
+     average = count_tweets.predict_tweets(i)
+     print (average)

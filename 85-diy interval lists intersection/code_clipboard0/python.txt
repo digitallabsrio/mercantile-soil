@@ -1,0 +1,4 @@
+def intervals_intersection(intervals_a, intervals_b):
+    # write your code here
+
+    pass

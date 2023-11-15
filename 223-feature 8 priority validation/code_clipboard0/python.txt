@@ -1,0 +1,17 @@
+def valid_sequence(priorities): 
+    maps = dict()
+
+    for i in priorities: 
+        maps[i] = set()
+    
+    maps.get(0).add(0)
+    for i in priorities: 
+        for k in maps.get(i): 
+            for increment in range (k - 1, k + 2): 
+                if increment > 0 and(i + increment in maps.keys()): 
+                    maps.get(i + increment).add(increment)
+    return len(maps.get(priorities[len(priorities) - 1])) > 0
+
+# Driver Code
+input_list = [0, 1, 3, 5, 8, 12, 17]
+print(valid_sequence(input_list))

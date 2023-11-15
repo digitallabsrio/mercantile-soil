@@ -1,0 +1,14 @@
+def suggest_two_products(item_prices, amount):
+    buff_dict = {}
+    for i, price in enumerate(item_prices):
+        remaining = amount - price
+        if remaining in buff_dict:
+            return [buff_dict[remaining], i]
+        else:
+            buff_dict[price] = i
+
+## Driver code
+
+item_prices = [2, 30, 56, 34, 55, 10, 11, 20, 15, 60, 45, 39, 51]
+amount = 61
+print(suggest_two_products(item_prices, amount))

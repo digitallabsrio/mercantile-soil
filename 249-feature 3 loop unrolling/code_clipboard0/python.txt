@@ -1,0 +1,29 @@
+def loop_unrolling(code_block):
+    count_stack = []
+    statement_stack = []
+    current_statement = "";
+    n = 0;
+    for ch in code_block: 
+        if ch.isdigit():
+            n = n * 10 + int(ch)
+        elif ch == '[':
+            # push the number n to count_stack
+            count_stack.append(n)
+            statement_stack.append(current_statement)
+            # reset current_statement and n
+            current_statement = ""
+            n = 0
+        elif ch == ']':
+            unroll_statement = statement_stack.pop()
+            # unroll current_n[current_statement] by appending current_statement n times
+            current_n = count_stack.pop()
+            while current_n > 0:
+                unroll_statement += current_statement
+                current_n -= 1
+            current_statement = unroll_statement
+        else:
+            current_statement += ch
+    return current_statement
+
+# Driver code  
+print(loop_unrolling("2[sum = sum + i; 2[i++; ]]"))

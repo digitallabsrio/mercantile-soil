@@ -1,0 +1,5 @@
+def can_complete_circuit(gas, cost):
+    
+    # Write your code here
+
+    pass

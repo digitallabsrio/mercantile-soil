@@ -1,0 +1,10 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#   def __init__(self, val):
+#     self.val = val
+#     self.left, self.right = None, None
+
+def traverse(root):
+  # write your code here
+
+  pass

@@ -1,0 +1,23 @@
+def check_delivery(packages, k):
+    curr_sum = 0
+    dict = {}
+    
+    # if the very first subarray with first two numbers in array could form the result, we need to 
+    # put mod value 0 and index -1 to make it as a true case
+    dict[0] = -1
+    for i in range(len(packages)):
+        curr_sum += packages[i]
+        if k != 0:
+            curr_sum = curr_sum % k
+        if curr_sum in dict: 
+            if i - dict[curr_sum] > 1:
+                return True
+        else:
+            dict[curr_sum] = i
+
+    return False
+
+# Driver code
+packages = [11, 42, 54, 44, 49, 26]
+k = 10
+print(check_delivery(packages, k))

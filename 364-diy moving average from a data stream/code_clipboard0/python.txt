@@ -1,0 +1,10 @@
+class moving_average:
+     def __init__(self, size):
+        self.size = size
+        # Initialize your variables here
+
+     def find_moving_average(self,val):
+          
+          # Write your code here
+
+         pass

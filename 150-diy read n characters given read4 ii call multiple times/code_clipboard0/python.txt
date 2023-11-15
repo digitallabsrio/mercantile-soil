@@ -1,0 +1,20 @@
+# bufferself.State maintains the self.state of buff that is passed to read4()
+class bufferState:
+    def __init__(self):
+        self.buff = []
+        self.ptr = 0
+        self.count = 0
+
+  # implement read(n) below.
+class ReadCharacters:
+  def __init__(self):
+    
+    # Write your code here
+
+    pass
+  
+  def read(self,buffer, n):
+      
+      # Write your code here
+
+    pass

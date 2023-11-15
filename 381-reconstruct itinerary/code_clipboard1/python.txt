@@ -1,0 +1,31 @@
+from collections import defaultdict
+
+map = defaultdict(list)
+
+def detect_itinerary(tickets):
+    result = []
+    for ticket in tickets:
+        dep, des = ticket[0], ticket[1]
+        map[dep].append(des)
+
+    for dep, itinerary in map.items():
+        itinerary.sort(reverse=True)
+
+    DFS('JFK',result)
+
+    return result[::-1]
+
+def DFS(node,result):
+    des = map[node]
+    while des:
+        DFS(des.pop(),result)
+    result.append(node)
+
+# Driver code
+
+tickets = []
+tickets.append(["JFK","ATI"])
+tickets.append(["ATI","LHR"])
+tickets.append(["SAC","SJF"])
+tickets.append(["LHR","SAC"])
+print(detect_itinerary(tickets))

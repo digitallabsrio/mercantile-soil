@@ -1,0 +1,24 @@
+class RandomizedCollection:
+    def __init__(self):
+        
+        # Write your code here
+
+        pass
+    
+    def insert(self, val):
+
+        #  Write your code here
+        
+        pass
+
+    def remove(self, val):
+        
+        # Write your code here
+
+        pass
+
+    def get_random(self):
+
+        # Write your code here
+
+        pass

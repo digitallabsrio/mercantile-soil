@@ -1,0 +1,20 @@
+def resume_process(arr, n):        
+    def getMissingID(left, right, new_n):
+
+        # Base Case
+        if left + 1 == right:
+            return arr[left] + new_n
+
+        # Getting the split point of the list
+        middle = int((left + right) / 2)
+        
+        missing_nums = (arr[middle] - arr[left]) - (middle - left)
+        if new_n > missing_nums:
+            return getMissingID(middle, right, new_n - missing_nums)
+        else:
+            return getMissingID(left, middle, new_n)
+
+    pid = getMissingID(0, len(arr)-1, n)
+    return pid
+
+print(resume_process([5, 7, 9, 10, 13], 3))

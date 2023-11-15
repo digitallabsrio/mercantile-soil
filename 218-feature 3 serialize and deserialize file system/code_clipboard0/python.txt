@@ -1,0 +1,86 @@
+from collections import deque
+
+class Node:
+  def __init__(self,val, children= []):
+      self.children = children
+      self.val = val
+
+#  Encodes a tree to a single string.
+def serialize(root):
+    if root == None:
+        return ""
+
+    result = []
+    queue = deque()
+    queue.append(root)
+    children_count = []
+
+    while len(queue) > 0:
+        size = len(queue)
+        for s in range(0,size):
+            cur = queue.popleft()
+            children_count.append(len(cur.children))
+
+            if cur == None:
+                result.append("n")
+                continue
+
+            result.append(cur.val)
+
+            for next in cur.children:
+                queue.append(next)
+    
+    n_child = ",".join(map(str,children_count)) 
+    n_res =  ",".join(map(str,result))
+    return str(n_child) + "|" + str(n_res)
+
+# Decodes your encoded data to tree.
+def deserialize(data) :
+    if data == "":
+        return None
+
+    count_and_result = data.split('|')
+
+    children_count = count_and_result[0].split(',')
+    for i in range(0,len(children_count)):
+        children_count[i] = int(children_count[i]) 
+
+    all_nodes = count_and_result[1].split(',')
+
+    root = Node(all_nodes[0], [])
+
+    i = 1
+    all_leve_count_index = 0
+
+    queue = deque()
+    queue.append(root)
+
+    while len(queue) > 0:
+        size = len(queue)
+        for s in range(0,size):
+            cur = queue.popleft()
+            for k in range(0,children_count[all_leve_count_index]):
+                if all_nodes[i] != "n":
+                    next_ =  Node(all_nodes[i], [])
+                    cur.children.append(next_)
+                    queue.append(next_)
+                i+=1
+            all_leve_count_index+=1
+
+    return root
+
+childrenroot = []
+childrenD1 = []
+childrenD1.append(Node("F3"))
+childrenD1.append(Node("F4"))
+childrenroot.append(Node("D1",childrenD1))
+childrenroot.append(Node("F1"))
+childrenroot.append(Node("F2"))
+root = Node("r",childrenroot)
+print("Serializing the tree:")
+s = serialize(root)
+print(s)
+
+print("Deserializing the string:")
+flag = [True]*6
+print_n_tree(deserialize(s), flag, 0, False) # print_n_tree is defined

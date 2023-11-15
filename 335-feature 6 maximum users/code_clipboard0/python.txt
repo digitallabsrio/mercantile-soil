@@ -1,0 +1,24 @@
+def max_users(array, k) :
+    mqueue = []  # Store given array indices. 
+    result = []  # Store maximum value of every window slide.
+    size = len(array) 
+    
+    for i in range(size):
+      while mqueue and array[mqueue[len(mqueue) - 1]] <= array[i]:
+        mqueue.pop(len(mqueue) - 1) 
+      
+      mqueue.append(i) 
+      if mqueue[0] == i - k:
+        mqueue.pop(0) 
+      
+      # If given array index greater than and equal to the window slide size, then push the maximum value in result array.
+      if (i >= k - 1):
+        result.append(array[mqueue[0]]) 
+
+    return result 
+
+# Driver code
+array = [4,7,12,16,8,3,13,20,5,9,22,2]
+k = 7 
+
+print(max_users(array, k)) 

@@ -1,0 +1,18 @@
+def reconstruct_by_priority(people):
+
+    # First sort priorities by priority and then by the k value.
+    # priority in descending order and k value in ascending order.
+
+    people.sort(key = lambda x: (-x[0], x[1]))
+
+    result = []
+
+    # Storing the results in the results list.
+    for p in people:
+        result.insert(p[1], p)
+    return result
+
+# Driver Code
+
+p1 =  [[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]
+print(reconstruct_by_priority(p1))

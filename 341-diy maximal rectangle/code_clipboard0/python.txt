@@ -1,0 +1,4 @@
+def maximal_rectangle(matrix):
+  # write your code here
+
+  pass

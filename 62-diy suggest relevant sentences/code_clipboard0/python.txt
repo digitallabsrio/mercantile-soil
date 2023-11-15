@@ -1,0 +1,6 @@
+class SuggestionSystem(object):
+    def __init__(self, sentences, times):
+       pass
+    
+    def input(self, c):
+        pass

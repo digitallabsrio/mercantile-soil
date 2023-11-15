@@ -1,0 +1,24 @@
+def RecoverFiles(s): 
+    stack = []
+    result = []
+    for i,val in enumerate(s):
+        if stack and stack[-1][0] == '(' and val == ')':
+            stack.pop()
+        elif val == '(' or val == ')':
+            stack.append((val, i))
+
+    count = 0
+    c = len(stack)
+    x = len(s)-1
+    str1 = "" 
+    while x >= 0:
+        if count < c and stack[-1][1] == x:
+            stack.pop()
+            count+=1
+        else:
+            result.append(s[x])
+        x-=1 
+    return (str1.join(reversed(result)))
+
+# driver code
+print(RecoverFiles("11)01(110)001("))

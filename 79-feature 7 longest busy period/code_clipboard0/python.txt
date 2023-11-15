@@ -1,0 +1,20 @@
+def length_of_longest_busy_period(schedule):
+  
+  longest_busy_period = 0
+  slot_set = set(schedule)
+
+  for slot in slot_set:
+    if slot - 1 not in slot_set:
+      current_slot = slot
+      current_consecutive_slot = 1
+
+      while current_slot + 1 in slot_set:
+        current_slot += 1
+        current_consecutive_slot += 1
+
+      if current_consecutive_slot > longest_busy_period:
+        longest_busy_period = current_consecutive_slot
+
+  return longest_busy_period
+
+print(length_of_longest_busy_period([3, 1, 15, 5, 2, 12, 10, 4, 8, 9]))

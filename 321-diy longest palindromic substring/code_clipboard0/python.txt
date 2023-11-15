@@ -1,0 +1,4 @@
+def longest_palindrome(s):
+    # write your code here
+
+    pass

@@ -1,0 +1,43 @@
+def remove_comments(source):
+    """
+    :type source: List[str]
+    :rtype: List[str]
+    """
+    output = []
+    buffer = ""
+    block = False
+    for line in source:
+        i = 0
+        while i < len(line):
+            char = line[i]
+            # "//" -> inline comment.
+            if char == '/' and (i + 1) < len(line) and line[i + 1] == '/' and not block:
+                i = len(line) # Advance pointer to end of current line.
+            # "/*" -> start of block comment.
+            elif char == '/' and (i + 1) < len(line) and line[i + 1] == '*' and not block:
+                block = True
+                i += 1
+            # "*/" -> end of block comment.
+            elif char == '*' and (i + 1) < len(line) and line[i + 1] == '/' and block:
+                block = False
+                i += 1
+            # normal character -> Append to buffer if not in block comment.
+            elif not block:
+                buffer += char
+            i += 1
+        if buffer and not block:
+            output.append(buffer)
+            buffer = ""
+    return output
+
+source = ["/* Example code for feature */", 
+            "int main() {", 
+            "  /*", 
+            "  This is a", 
+            "  block comment", 
+            "  */", 
+            "  int value = 10;  // This is an inline comment", 
+            "  int sum = value + /* this is // also a block */ value;", 
+            "  return 0;", 
+            "}"]
+print(remove_comments(source))

@@ -1,0 +1,25 @@
+def most_common_token(code, keywords):
+    # Replacing the syntax with spaces
+    normalized_code = ''.join([c if c.isalnum() else ' ' for c in code])
+    tokens = normalized_code.split()
+    count = defaultdict(int)
+    banned_words = set(keywords)
+
+    # Count occurrence of each token, excluding the keywords 
+    for token in tokens:
+        if token not in banned_words:
+            count[token] += 1
+
+    
+    return max(count.items(), key=operator.itemgetter(1))[0]
+
+
+# Driver code
+code = """int main() {
+  int value = getValue();  
+  int sum = value + getRandom();
+  int subs = value - getRandom();
+  return 0;
+}"""
+keywords = ["int", "main", "return"]
+print(most_common_token(code, keywords))

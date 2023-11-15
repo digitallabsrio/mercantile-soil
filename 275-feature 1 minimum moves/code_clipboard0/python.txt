@@ -1,0 +1,49 @@
+import collections
+from collections import defaultdict
+def minimum_moves(initial_word, final_word, word_group):
+    if final_word not in word_group or not final_word or not initial_word or not word_group:
+        return 0
+
+    # Since all words are of same length.
+    M = len(initial_word)
+
+    # Dictionary to hold combination of words that can be formed,
+    # from any given word. By changing one letter at a time.
+    states_list = defaultdict(list)
+    for word in word_group:
+        for i in range(M):
+            # Key is the generic word
+            # Value is a list of words which have the same intermediate generic word.
+            states_list[word[:i] + "_" + word[i+1:]].append(word)
+
+
+    # Queue for BFS
+    queue = collections.deque([(initial_word, 0)])
+    # Visited to make sure we don't repeat processing same word.
+    visited = {initial_word: True}
+    while queue:
+        current_word, level = queue.popleft()      
+        for i in range(M):
+            # Intermediate words for current word
+            intermediate_word = current_word[:i] + "_" + current_word[i+1:]
+
+            # Next states are all the words which share the same intermediate state.
+            for word in states_list[intermediate_word]:
+                # If at any point if we find what we are looking for
+                # i.e. the end word - we can return with the answer.
+                if word == final_word:
+                    return level + 1
+                # Otherwise, add it to the BFS Queue. Also mark it visited
+                if word not in visited:
+                    visited[word] = True
+                    queue.append((word, level + 1))
+            states_list[intermediate_word] = []
+    return 0
+
+
+# Driver code
+initial_word = "hit"
+final_word = "cog"
+word_group = ["hot","dot","dog","lot","log","cog"]
+
+print("The shortest sequece is of length:", minimum_moves(initial_word, final_word, word_group))

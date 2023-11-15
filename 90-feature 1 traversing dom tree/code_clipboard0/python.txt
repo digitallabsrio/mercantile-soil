@@ -1,0 +1,46 @@
+from collections import deque
+
+class TreeNode:
+  def __init__(self, val):
+    self.val = val
+    self.children = []
+
+
+def traverse(root):
+  result = []
+  if root is None:
+    return result
+
+  queue = deque()
+  queue.append(root)
+  while queue:
+    queue_size = len(queue)
+    currentLevel = []
+    for _ in range(queue_size):
+      currentNode = queue.popleft()
+      # add the node to the current level
+      currentLevel.append(currentNode.val)
+      # insert the childrenren of current node in the queue
+      queue.extend(currentNode.children)
+
+    result.append(currentLevel)
+
+  return result
+
+
+# Driver Code
+
+root = TreeNode("body")
+root.children.append(TreeNode("div"))
+root.children.append(TreeNode("h1"))
+root.children.append(TreeNode("div")) 
+root.children[0].children.append(TreeNode("h2")) 
+root.children[0].children[0].children.append(TreeNode("ul")) 
+root.children[0].children.append(TreeNode("h3")) 
+root.children[0].children[1].children.append(TreeNode("a"))
+root.children[0].children[1].children.append(TreeNode("p"))
+root.children[0].children[1].children.append(TreeNode("table")) 
+root.children[2].children.append(TreeNode("p"))
+root.children[2].children.append(TreeNode("a"))
+root.children[2].children.append(TreeNode("p"))
+print("Web nodes at each level: " + str(traverse(root)))

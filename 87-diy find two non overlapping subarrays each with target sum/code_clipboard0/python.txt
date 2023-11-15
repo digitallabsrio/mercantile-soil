@@ -1,0 +1,3 @@
+def min_sum_length(arr, target):
+    # write your code here
+    pass

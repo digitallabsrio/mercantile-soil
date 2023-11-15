@@ -1,0 +1,26 @@
+def find_kth_missing_gene(gene_a, k):
+    left, right = 0, len(gene_a) - 1
+    while left <= right:
+        # we choose the pivot, which is the middle index of the arr, A
+        pivot = (left + right) // 2
+        
+        # If the number of missing genes before the current gene 
+        # is less than k, we will continue to search on the right side of A. 
+        if gene_a[pivot] - pivot - 1 < k:
+            left = pivot + 1
+        # Otherwise, we will continue to search on the left of A
+        else:
+            right = pivot - 1
+            
+    return left + k
+
+# Driver code
+# Example -1 
+gene_a = [2,3,4,7,11]
+k = 5
+
+print("The kth missing gene is: " , find_kth_missing_gene(gene_a, k))
+
+# Example -2 
+k = 7
+print("The kth missing gene is: " , find_kth_missing_gene(gene_a, k))

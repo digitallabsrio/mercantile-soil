@@ -1,0 +1,4 @@
+def num_of_minutes(n, headID, manager, informTime):
+    #write your code here
+
+    pass

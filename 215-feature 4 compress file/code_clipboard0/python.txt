@@ -1,0 +1,34 @@
+def identify_concatenations(words):
+    # Set for O(1) lookups
+    word_set = set(words)
+    
+    def dfs(word, cache):
+        # If result for current word already calculated then
+        # return from cache
+        if word in cache:
+            return cache[word]
+        # Traverse over the word to generate all combinations    
+        for i in range(1, len(word)):
+            # Divide the word into prefix and suffix
+            prefix = word[:i]
+            suffix = word[i:]
+            
+            if prefix in word_set:
+                if suffix in word_set or dfs(suffix, cache):
+                    cache[word] = True
+                    return True
+        cache[word] = False
+        return False
+    
+    res = []
+    cache = {}
+    # Process for each word
+    for word in words:
+        if dfs(word, cache):
+            res.append(word)
+    return res
+
+# Driver code
+
+file_words = ["n", "cat", "cats", "dog", "catsndog"]
+print("The following words will be compressed:", identify_concatenations(file_words))

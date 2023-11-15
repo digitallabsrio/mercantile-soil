@@ -1,0 +1,34 @@
+def can_complete_circuit(gas, cost):
+    # Initiate the required variables.
+    total_tank, curr_tank = 0, 0
+    starting_station = 0
+
+    # Iterate over all the stations
+    for i, val in enumerate(gas):
+        # update the varaibles at each step
+        total_tank += val - cost[i]
+        curr_tank += val - cost[i]
+
+        # If we cannot reach the current station
+        if curr_tank < 0:
+
+            # Make the next station as a new starting point and reset the tank to 
+            #start with an empty tank.
+            starting_station = i + 1
+
+            # Start with an empty tank.
+            curr_tank = 0
+    
+    return starting_station if total_tank >= 0 else -1
+
+# Driver Code
+
+gas = [1,2,3,4,5]
+cost = [3,4,5,1,2]
+index = can_complete_circuit(gas, cost)
+
+if index == -1:
+    print("Output: "+ str(index))
+    print("We cannot make the round trip once, no matter where you start.")
+else:
+    print("Starting gas station's index is: " + str(index) + ".")

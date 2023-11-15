@@ -1,0 +1,36 @@
+import collections
+def goals_fulfilled(trades):
+  frequency_map = collections.Counter(trades)
+  imagined_map = collections.Counter()
+
+  for n in trades:
+
+    if frequency_map[n] == 0:
+      continue
+
+    elif imagined_map[n] > 0:
+      # Adding number to existing sequence
+      imagined_map[n] -= 1
+      imagined_map[n+1] += 1
+
+    elif frequency_map[n+1] > 0 and frequency_map[n+2] > 0:
+      # Creating new subsequence
+      frequency_map[n+1] -= 1
+      frequency_map[n+2] -= 1
+      imagined_map[n+3] += 1
+
+    else:
+      return False
+
+    frequency_map[n] -= 1
+  
+  return True
+
+# Driver code
+
+trades = [1, 2, 3, 3, 4, 4, 5, 5]
+
+if goals_fulfilled(trades) == False:
+  print("The goals have not been fulfilled!")
+else:
+  print("The goals have been fulfilled!")
